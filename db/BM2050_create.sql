@@ -1,15 +1,18 @@
 -- Created by Erik Stevens
 -- Last modification date: 2018-11-26 15:54:51.9
+-- URL Vertablo (not shared, only accessible by Erik (ask him)) https://my.vertabelo.com/model/s2mi0MGtPf35mHyuOmBU1orCctNKVq4E
 
 -- tables
 -- Table: Account
 CREATE TABLE Account (
     Id integer NOT NULL CONSTRAINT Account_pk PRIMARY KEY,
-    IsAdmin boolean,
-    FirstName integer,
-    LastName integer,
-    EmailAddress integer,
+    IsAdmin boolean NOT NULL,
+    FirstName integer NOT NULL,
+    LastName integer NOT NULL,
+    EmailAddress integer NOT NULL,
     RoleId integer NOT NULL,
+    CreationDate datetime NOT NULL,
+    LastLogin datetime NOT NULL,
     CONSTRAINT Account_Roles FOREIGN KEY (RoleId)
     REFERENCES Role (Id)
 );
@@ -30,8 +33,9 @@ CREATE TABLE Answer (
     Id integer NOT NULL CONSTRAINT Answer_pk PRIMARY KEY,
     QuestionId integer NOT NULL,
     AccountId integer NOT NULL,
-    Answer varchar(1000),
-    AnswerId integer,
+    Answer varchar(1000) NOT NULL,
+    AnswerId integer NOT NULL,
+    TimeStamp datetime NOT NULL,
     CONSTRAINT Answer_Question FOREIGN KEY (QuestionId)
     REFERENCES Question (Id),
     CONSTRAINT Answer_Account FOREIGN KEY (AccountId)
@@ -54,22 +58,22 @@ CREATE TABLE AnswerDomainExpertise (
 -- Table: AnswerStatus
 CREATE TABLE AnswerStatus (
     Id integer NOT NULL CONSTRAINT AnswerStatus_pk PRIMARY KEY,
-    Name integer
+    Name integer NOT NULL
 );
 
 -- Table: DomainExpertise
 CREATE TABLE DomainExpertise (
     Id integer NOT NULL CONSTRAINT DomainExpertise_pk PRIMARY KEY,
-    Name varchar(255)
+    Name varchar(255) NOT NULL
 );
 
 -- Table: Question
 CREATE TABLE Question (
     Id integer NOT NULL CONSTRAINT Question_pk PRIMARY KEY,
-    Question varchar(1000),
-    TimeStamp datetime,
+    Question varchar(1000) NOT NULL,
+    TimeStamp datetime NOT NULL,
     AnswerStatusId integer NOT NULL,
-    IsPoll boolean,
+    IsPoll boolean NOT NULL,
     CONSTRAINT Question_AnswerStatus FOREIGN KEY (AnswerStatusId)
     REFERENCES AnswerStatus (Id)
 );
@@ -77,7 +81,7 @@ CREATE TABLE Question (
 -- Table: Role
 CREATE TABLE Role (
     Id integer NOT NULL CONSTRAINT Role_pk PRIMARY KEY,
-    Name integer
+    Name integer NOT NULL
 );
 
 -- Table: Vote
@@ -86,6 +90,7 @@ CREATE TABLE Vote (
     AccountId integer NOT NULL,
     AnswerId integer NOT NULL,
     QuestionId integer NOT NULL,
+    TimeStamp datetime NOT NULL,
     CONSTRAINT Vote_Account FOREIGN KEY (AccountId)
     REFERENCES Account (Id),
     CONSTRAINT Vote_Answer FOREIGN KEY (AnswerId)
@@ -95,4 +100,3 @@ CREATE TABLE Vote (
 );
 
 -- End of file.
-
