@@ -13,6 +13,8 @@ CREATE TABLE Account (
     RoleId integer NOT NULL,
     CreationDate datetime NOT NULL,
     LastLogin datetime NOT NULL,
+    Username varchar(255) NOT NULL,
+    Password varchar(255) NOT NULL,
     CONSTRAINT Account_Roles FOREIGN KEY (RoleId)
     REFERENCES Role (Id)
 );
@@ -34,14 +36,17 @@ CREATE TABLE Answer (
     QuestionId integer NOT NULL,
     AccountId integer NOT NULL,
     Answer varchar(1000) NOT NULL,
-    AnswerId integer NOT NULL,
+    AnswerId integer,
     TimeStamp datetime NOT NULL,
+    PollOpionid integer,
     CONSTRAINT Answer_Question FOREIGN KEY (QuestionId)
     REFERENCES Question (Id),
     CONSTRAINT Answer_Account FOREIGN KEY (AccountId)
     REFERENCES Account (Id),
     CONSTRAINT Answer_Answer FOREIGN KEY (AnswerId)
-    REFERENCES Answer (Id)
+    REFERENCES Answer (Id),
+    CONSTRAINT Answer_PollOpions FOREIGN KEY (PollOpionid)
+    REFERENCES PollOpion (id)
 );
 
 -- Table: AnswerDomainExpertise
@@ -65,6 +70,15 @@ CREATE TABLE AnswerStatus (
 CREATE TABLE DomainExpertise (
     Id integer NOT NULL CONSTRAINT DomainExpertise_pk PRIMARY KEY,
     Name varchar(255) NOT NULL
+);
+
+-- Table: PollOpion
+CREATE TABLE PollOpion (
+    id integer NOT NULL CONSTRAINT PollOpion_pk PRIMARY KEY,
+    OptionName varchar(255) NOT NULL,
+    QuestionId integer NOT NULL,
+    CONSTRAINT PollOpions_Question FOREIGN KEY (QuestionId)
+    REFERENCES Question (Id)
 );
 
 -- Table: Question
