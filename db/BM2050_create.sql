@@ -88,8 +88,22 @@ CREATE TABLE Question (
     TimeStamp datetime NOT NULL,
     AnswerStatusId integer NOT NULL,
     IsPoll boolean NOT NULL,
+    AccountId integer NOT NULL,
     CONSTRAINT Question_AnswerStatus FOREIGN KEY (AnswerStatusId)
-    REFERENCES AnswerStatus (Id)
+    REFERENCES AnswerStatus (Id),
+    CONSTRAINT Question_Account FOREIGN KEY (AccountId)
+    REFERENCES Account (Id)
+);
+
+-- Table: QuestionDomainExpertise
+CREATE TABLE QuestionDomainExpertise (
+    DomainExpertiseId integer NOT NULL,
+    QuestionId integer NOT NULL,
+    CONSTRAINT QuestionDomainExpertise_pk PRIMARY KEY (DomainExpertiseId,QuestionId),
+    CONSTRAINT QuestionDomainExpertise_DomainExpertise FOREIGN KEY (DomainExpertiseId)
+    REFERENCES DomainExpertise (Id),
+    CONSTRAINT QuestionDomainExpertise_Question FOREIGN KEY (QuestionId)
+    REFERENCES Question (Id)
 );
 
 -- Table: Role
