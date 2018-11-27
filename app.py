@@ -15,6 +15,7 @@ from models.question import Question
 from models.role import Role
 from models.vote import Vote
 
+from controllers import TopicController
 
 
 app = Flask(__name__)
@@ -31,6 +32,14 @@ def hello_test():
 @app.route('/template')
 def templates():
     return render_template('sample.html', title='template test')
+
+@app.route('/addTopic', methods = ['GET', 'POST'])
+def addTopic():
+    if request.method == 'GET':
+        return render_template('AddTopic.html', title='template test')
+    elif request.method == 'POST':
+        TopicController.createTopic(request.form)
+        return render_template('AddTopic.html', title='template test')
 
 @app.route('/models')
 def models():
