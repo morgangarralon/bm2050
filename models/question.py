@@ -6,6 +6,7 @@ class Question(db.Model):
     TimeStamp = db.Column(db.DateTime)
     AnswerStatusId = db.Column(db.Integer, db.ForeignKey('answerStatus.id'))
     IsPoll = db.Column(db.Boolean)
+    Score = db.Column(db.Integer)
 
     def __repr__(self):
         return '<question %r>'% self.Question

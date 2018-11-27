@@ -1,14 +1,13 @@
--- Created by Erik Stevens
--- Last modification date: 2018-11-26 15:54:51.9
--- URL Vertablo (not shared, only accessible by Erik (ask him)) https://my.vertabelo.com/model/s2mi0MGtPf35mHyuOmBU1orCctNKVq4E
+-- Created by Vertabelo (http://vertabelo.com)
+-- Last modification date: 2018-11-27 18:02:06.198
 
 -- tables
 -- Table: Account
 CREATE TABLE Account (
     Id integer NOT NULL CONSTRAINT Account_pk PRIMARY KEY,
     IsAdmin boolean NOT NULL,
-    FirstName integer NOT NULL,
-    LastName integer NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    LastName varchar(255) NOT NULL,
     EmailAddress integer NOT NULL,
     RoleId integer NOT NULL,
     CreationDate datetime NOT NULL,

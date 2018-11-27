@@ -5,8 +5,8 @@ from .model import db
 class Account(db.Model):
     Id = db.Column(db.Integer, primary_key=True)
     IsAdmin = db.Column(db.Boolean)
-    FirstName = db.Column(db.Integer)
-    LastName = db.Column(db.Integer)
+    FirstName = db.Column(db.String(255))
+    LastName = db.Column(db.String(255))
     EmailAddress = db.Column(db.Integer)
     RoleId = db.Column(db.Integer)
     CreationDate = db.Column(db.DateTime)
