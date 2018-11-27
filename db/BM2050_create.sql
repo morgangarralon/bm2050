@@ -39,6 +39,7 @@ CREATE TABLE Answer (
     AnswerId integer,
     TimeStamp datetime NOT NULL,
     PollOpionid integer,
+    Score integer NOT NULL,
     CONSTRAINT Answer_Question FOREIGN KEY (QuestionId)
     REFERENCES Question (Id),
     CONSTRAINT Answer_Account FOREIGN KEY (AccountId)
@@ -89,6 +90,7 @@ CREATE TABLE Question (
     AnswerStatusId integer NOT NULL,
     IsPoll boolean NOT NULL,
     AccountId integer NOT NULL,
+    Score integer NOT NULL,
     CONSTRAINT Question_AnswerStatus FOREIGN KEY (AnswerStatusId)
     REFERENCES AnswerStatus (Id),
     CONSTRAINT Question_Account FOREIGN KEY (AccountId)
@@ -119,6 +121,7 @@ CREATE TABLE Vote (
     AnswerId integer NOT NULL,
     QuestionId integer NOT NULL,
     TimeStamp datetime NOT NULL,
+    IsUpvote boolean NOT NULL,
     CONSTRAINT Vote_Account FOREIGN KEY (AccountId)
     REFERENCES Account (Id),
     CONSTRAINT Vote_Answer FOREIGN KEY (AnswerId)
