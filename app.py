@@ -5,7 +5,16 @@ from flask import (
 
 from models import model
 from models.account import Account
-#from models.vote import Vote
+from models.accountDomainExpertise import AccountDomainExpertise
+from models.answer import Answer
+from models.answerDomainExpertise import AnswerDomainExpertise
+from models.answerStatus import AnswerStatus
+from models.domainExpertise import DomainExpertise
+from models.pollOption import PollOption
+from models.question import Question
+from models.role import Role
+from models.vote import Vote
+
 
 
 app = Flask(__name__)
@@ -25,6 +34,7 @@ def templates():
 @app.route('/models')
 def models():
     a = Account('toto@tt.fr')
+    a.Password = 'helloworld'
     return '<p> {} </p>'.format(a.EmailAddress)
 
 
