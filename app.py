@@ -18,6 +18,7 @@ from models.vote import Vote
 
 
 app = Flask(__name__)
+app.debug = True
 
 @app.route('/')
 def hello_world():
