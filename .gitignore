@@ -4,3 +4,4 @@
 __pycache__/
 log/
 db/bm2050.db
+models/conf.py
