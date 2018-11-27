@@ -5,6 +5,7 @@ from flask import (
 
 from models import model
 from models.account import Account
+#from models.vote import Vote
 
 
 app = Flask(__name__)
@@ -21,10 +22,11 @@ def hello_test():
 def templates():
     return render_template('sample.html', title='template test')
 
-@app.route('/account')
-def account():
-    a = Account()
-    return repr(a)
+@app.route('/models')
+def models():
+    a = Account('toto@tt.fr')
+    return '<p> {} </p>'.format(a.EmailAddress)
+
 
 if __name__ == '__main__':
     app.run()
