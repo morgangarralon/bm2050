@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 
 from models.model import db
 from models.account import Account
