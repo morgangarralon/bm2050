@@ -7,6 +7,10 @@ from models.question import Question
 
 
 class Topic(object):
+    @staticmethod
+    def get_by_id(topic_id):
+        return Question.query.get(topic_id)
+
     def __init__(self, question, accountId, answerStatusId, isPoll):
         qst = Question()
 

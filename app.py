@@ -55,19 +55,10 @@ def index():
 
 @app.route('/displayTopic/<topic_id>')
 def displayTopic(topic_id = None):
-    template = None;
-
-    try:
-        topic = TopicController.findById(topic_id)
-
-        if topic == None:
-            template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
-    except ModuleNotFoundError as e:
-        template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
-
-    template = render_template('topic.html', topic = topic)
-
-    return template
+    topic = Topic.get_by_id(1)
+    if topic is None:
+        return render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
+    return render_template('topic.html', topic = topic)
 
 
 if __name__ == '__main__':
