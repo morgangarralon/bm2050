@@ -8,7 +8,7 @@ CREATE TABLE Account (
     IsAdmin boolean NOT NULL,
     FirstName varchar(255) NOT NULL,
     LastName varchar(255) NOT NULL,
-    EmailAddress integer NOT NULL,
+    EmailAddress varchar(255) NOT NULL,
     RoleId integer NOT NULL,
     CreationDate datetime NOT NULL,
     LastLogin datetime NOT NULL,
