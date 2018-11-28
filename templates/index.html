@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
+{% block footer %}Liste des problématiques {{ topic_list }} - {{ super() }}
+{% endblock %}
+{% block title %}Liste des problématiques {{ topic_list }} - {% endblock %}
 {% block head %}
   {{ super() }}
-  {% block title %}Liste des problématiques {{ topic_list }}{% endblock %}
 {% endblock %}
 {% block content %}
   <h1>Liste des problématiques {{ topic_list }}</h1>
