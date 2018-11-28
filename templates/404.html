@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block footer %}Page non trouvée - {% endblock %}
+{% block title %}Page non trouvée - {% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+	<h2 class="">Page non trouvée...</h2>
+	<hr/>
+	<div class="text-center">
+    <div class="text-center">
+      <p>Il devrait y avoir plus intéressant par <a href="{{ url_for('index') }}">ici</a>
+	  </div>
+  </div>
+{% endblock %}
