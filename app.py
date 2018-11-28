@@ -3,17 +3,17 @@ from flask import (
     Flask, render_template, redirect, request, url_for, session
 )
 
-# from models import model
-# from models.account import Account
-# from models.accountDomainExpertise import AccountDomainExpertise
-# from models.answer import Answer
-# from models.answerDomainExpertise import AnswerDomainExpertise
-# from models.answerStatus import AnswerStatus
-# from models.domainExpertise import DomainExpertise
-# from models.pollOption import PollOption
-# from models.question import Question
-# from models.role import Role
-# from models.vote import Vote
+from models import model
+from models.account import Account
+from models.accountDomainExpertise import AccountDomainExpertise
+from models.answer import Answer
+from models.answerDomainExpertise import AnswerDomainExpertise
+from models.answerStatus import AnswerStatus
+from models.domainExpertise import DomainExpertise
+from models.pollOption import PollOption
+from models.question import Question
+from models.role import Role
+from models.vote import Vote
 
 from controllers import TopicController
 
@@ -49,7 +49,9 @@ def addTopic():
 
 @app.route('/indexzouille')
 def indexzouille():
-    topics = ['bla', 'blabla', 'blablabla', '...............................................................']
+
+    topics = TopicController.findAllTopic()
+    #= ['bla', 'blabla', 'blablabla', '...............................................................']
     return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
 
 
