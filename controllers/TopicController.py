@@ -4,21 +4,19 @@ from models.answerStatus import AnswerStatus
 
 import datetime
 
-def createTopic(topic):
+def createTopic(question, accountId, answerStatusId, isPoll):
     
     qst = Question()
 
-    qst.Question = topic.get('question')
+    qst.Question = question
+    qst.AccountId = accountId
     qst.TimeStamp = datetime.date.today()
-    qst.AccountId = 1
-    qst.IsPoll = False
-    qst.AnswerStatusId = 1
-    qst.Score = 100
+    qst.AnswerStatusId = answerStatusId
+    qst.IsPoll = isPoll
+    qst.Score = 0
 
     db.session.add(qst)
     db.session.commit()
 
-    print("Le sujet a été crée")
-
-def DeleteTopicController(topic):
-    print("Le sujet a été supprimé")
+def DeleteTopicController(questionId):
+    print('delete topic not implemented')
