@@ -53,6 +53,7 @@ def index():
     topics = Topics.get_all()
     return render_template('index.html', static_url_path=static_url_path, topics=topics)
 
+# REST: topics/{topic_id} [GET]
 @app.route('/displayTopic/<topic_id>')
 def displayTopic(topic_id = None):
     topic = Topic.get_by_id(1)
