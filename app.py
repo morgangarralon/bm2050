@@ -29,15 +29,8 @@ model.db.init_app(app)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, world!'
-
-# @app.route('/test')
-# def hello_test():
-#     return 'Hello, TEST!'
-
-# @app.route('/template')
-# def templates():
-#     return render_template('sample.html', title='template test')
+    topics = TopicController.findAllTopic()
+    return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
 
 @app.route('/addTopic', methods = ['GET', 'POST'])
 def addTopic():
@@ -55,18 +48,25 @@ def addTopic():
 
 @app.route('/index')
 def index():
-
     topics = TopicController.findAllTopic()
     #= ['bla', 'blabla', 'blablabla', '...............................................................']
     return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
 
-@app.route('/topic')
-def topic():
+@app.route('/displayTopic/<topic_id>')
+def displayTopic(topic_id = None):
+    template = None;
 
-    topics = TopicController.findAllTopic()
-    #= ['bla', 'blabla', 'blablabla', '...............................................................']
-    return render_template('topic.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
+    try:
+        topic = TopicController.findById(topic_id)
 
+        if topic == None:
+            template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
+    except ModuleNotFoundError as e:
+        template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
+
+    template = render_template('topic.html', topic = topic)
+
+    return template
 
 
 if __name__ == '__main__':

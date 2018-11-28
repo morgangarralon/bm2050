@@ -22,6 +22,9 @@ def createTopic(question, accountId, answerStatusId, isPoll):
 def findAllTopic():
     return Question.query.all()
 
+def findById(id):
+    return Question.query.get(id)
+
 def DeleteTopicController(questionId):
     print('delete topic not implemented')
     

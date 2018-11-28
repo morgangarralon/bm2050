@@ -1,29 +1,17 @@
 {% extends "layout.html" %}
+{% block footer %}Sujet n°{{ topic.Id }} - {% endblock %}
+{% block title %}Sujet n°{{ topic.Id }} - {% endblock %}
 {% block head %}
   {{ super() }}
-  {% block title %} Sujet {{ topic_list }}{% endblock %}
 {% endblock %}
 {% block content %}
-<html>
-	<head>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-		<title>This is title</title>
-	</head>
-	<body>
-
-		<div class="container">
-			<blockquote class="blockquote text-center">
-  				<p class="mb-0"> Bordeaux ?</p>
-  				<footer class="blockquote-footer"User Goldeck </footer>
-			</blockquote>
-			<div class="text-center">
-				<button type="button" class="btn btn-success">Yes</button>
-				<br></br>
-				<button type="button" class="btn btn-danger">No</button>
-			</div>
-		</div>
-		
-	</body>
-</html>
-
+	<h2 class="">{{ topic.Question }}</h2>
+	<hr/>
+	<div class="text-center">
+		<button type="button" class="btn btn-success btn-poll">Yes</button>
+		<button type="button" class="btn btn-danger btn-poll">No</button>
+	</div>
+  	<hr/>
+  	<hr/>
+  	#TODO pros 'n' cons
 {% endblock %}

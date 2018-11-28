@@ -38,3 +38,6 @@ footer {
   float: none !important;
   width: 20%;
 }
+.btn-poll {
+  margin: 5px;
+}
