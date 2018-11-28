@@ -7,7 +7,7 @@
     <h1>Création d'un sujet</h1>
   </head>
   <body>
-    <form action="{{ url_for('addTopic') }}" method=post>
+    <form action="{{ url_for('add_topic') }}" method=post>
         <div>Quelle est votre question ?</div>
         <textarea name=question rows=5 cols=40></textarea>
         <input type=submit value=Envoyer>
