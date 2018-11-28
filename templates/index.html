@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
+{% block footer %}Liste des problématiques {{ topic_list }} - {{ super() }}
+{% endblock %}
+{% block title %}Liste des problématiques {{ topic_list }} - {% endblock %}
 {% block head %}
   {{ super() }}
-  {% block title %}Liste des problématiques {{ topic_list }}{% endblock %}
 {% endblock %}
 {% block content %}
   <h1>Liste des problématiques {{ topic_list }}</h1>
@@ -24,7 +26,7 @@
   <hr/>
   <div class="list-group text-left">
     {% for topic in topics %}
-      <a href="#" class="list-group-item list-group-item-action">{{ topic }}</a>
+      <a href="#" class="list-group-item list-group-item-action">{{ topic.Question }}</a>
     {% endfor %}
   </div>
 {% endblock %}
