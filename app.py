@@ -52,6 +52,17 @@ def index():
     #= ['bla', 'blabla', 'blablabla', '...............................................................']
     return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
 
+# Route de login. Redirige vers index
+@app.route('/login', methods=['POST'])
+def do_login():
+    try:
+        account = Account.query.filter_by(EmailAddress == request.form['username'])
+        if request.form['password'] == account.password:
+            session['logged_in'] = True
+        else:
+            flash('L\'email ou le mot de passe est/sont erroné(s) !')
+    return index()
+
 @app.route('/displayTopic/<topic_id>')
 def displayTopic(topic_id = None):
     template = None;
