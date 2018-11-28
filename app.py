@@ -20,6 +20,12 @@ from controllers import TopicController
 static_url_path = '/static'
 app = Flask(__name__, static_url_path=static_url_path)
 app.debug = True
+app.config.from_mapping(
+    SQLALCHEMY_DATABASE_URI=model.database_uri,
+    SQLALCHEMY_TRACK_MODIFICATIONS=model.track_modification
+)
+
+model.db.init_app(app)
 
 @app.route('/')
 def hello_world():
@@ -48,14 +54,14 @@ def addTopic():
 #     return '<p> {} </p>'.format(a.EmailAddress)
 
 @app.route('/index')
-def indexzouille():
+def index():
 
     topics = TopicController.findAllTopic()
     #= ['bla', 'blabla', 'blablabla', '...............................................................']
     return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
 
 @app.route('/topic')
-def indexzouille():
+def topic():
 
     topics = TopicController.findAllTopic()
     #= ['bla', 'blabla', 'blablabla', '...............................................................']

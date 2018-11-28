@@ -9,9 +9,10 @@ except ModuleNotFoundError as e:
     exit(1)
 
 
-app = Flask(__name__)
+track_modification = False
+database_uri = 'sqlite:////{}'.format(DB_PATH)
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////{}'.format(DB_PATH)
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
+def init_app(app):
+    db.init_app(app)
