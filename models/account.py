@@ -13,8 +13,5 @@ class Account(db.Model):
     Username = db.Column (db.String(255))
     Password = db.Column(db.String(255))
 
-    def __init__(self, EmailAddress):
-        self.EmailAddress = EmailAddress
-
     def __repr__(self):
         return '<User %r>'% self.EmailAddress
