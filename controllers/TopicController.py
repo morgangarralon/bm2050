@@ -1,8 +1,9 @@
+import datetime
+
+from models.answerStatus import AnswerStatus
+from models.account import Account
 from models.model import db
 from models.question import Question
-from models.answerStatus import AnswerStatus
-
-import datetime
 
 def createTopic(question, accountId, answerStatusId, isPoll):
     
