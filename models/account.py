@@ -1,8 +1,7 @@
-
-
 from .model import db
 
 class Account(db.Model):
+    __tablename__ = 'Account'
     Id = db.Column(db.Integer, primary_key=True)
     IsAdmin = db.Column(db.Boolean)
     FirstName = db.Column(db.String(255))
@@ -19,4 +18,3 @@ class Account(db.Model):
 
     def __repr__(self):
         return '<User %r>'% self.EmailAddress
-

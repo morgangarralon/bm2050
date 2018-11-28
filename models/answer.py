@@ -1,6 +1,7 @@
 from .model import db
 
 class Answer(db.Model):
+    __tablename__ = 'Answer'
     Id = db.Column(db.Integer, primary_key=True)
     QuestionId = db.Column(db.Integer, db.ForeignKey('question.id'))
     AccountId = db.Column(db.Integer, db.ForeignKey('account.id'))
