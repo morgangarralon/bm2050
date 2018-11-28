@@ -15,7 +15,8 @@ from models.question import Question
 from models.role import Role
 from models.vote import Vote
 
-from controllers import TopicController
+from controllers.topic import Topics, Topic
+
 
 static_url_path = '/static'
 app = Flask(__name__, static_url_path=static_url_path)
@@ -27,10 +28,11 @@ app.config.from_mapping(
 
 model.db.init_app(app)
 
+
 @app.route('/')
 def hello_world():
-    topics = TopicController.findAllTopic()
-    return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
+    return redirect(url_for('index'))
+
 
 @app.route('/addTopic', methods = ['GET', 'POST'])
 def addTopic():
@@ -48,9 +50,8 @@ def addTopic():
 
 @app.route('/index')
 def index():
-    topics = TopicController.findAllTopic()
-    #= ['bla', 'blabla', 'blablabla', '...............................................................']
-    return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
+    topics = Topics.get_all()
+    return render_template('index.html', static_url_path=static_url_path, topics=topics)
 
 @app.route('/displayTopic/<topic_id>')
 def displayTopic(topic_id = None):
