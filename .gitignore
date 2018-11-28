@@ -6,3 +6,4 @@ log/
 db/bm2050.db
 models/conf.py
 .vscode
+venv/

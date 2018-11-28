@@ -46,10 +46,14 @@ def addTopic():
 #     a.Password = 'helloworld'
 #     return '<p> {} </p>'.format(a.EmailAddress)
 
+@app.route('/updateTopicScore/<id>/<val>', methods = ['GET', 'POST'])
+def updateTopicScore(id, val):
+    TopicController.updateTopicScore(id, val)
+    return displayTopic(id)
+
 @app.route('/index')
 def index():
     topics = TopicController.findAllTopic()
-    #= ['bla', 'blabla', 'blablabla', '...............................................................']
     return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
 
 @app.route('/displayTopic/<topic_id>')

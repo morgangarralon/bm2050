@@ -8,8 +8,17 @@
 	<h2 class="">{{ topic.Question }}</h2>
 	<hr/>
 	<div class="text-center">
-		<button type="button" class="btn btn-success btn-poll">Yes</button>
-		<button type="button" class="btn btn-danger btn-poll">No</button>
+    <div class="text-center">
+      {{ topic.Score }}
+    </div>
+    <form  action="{{ url_for('updateTopicScore', id=topic.Id|string, val=1|string) }}" method="POST">
+		    <input id="yes" type=submit class="btn btn-success btn-poll" value="1"></input>
+    </form>
+
+    <form  action="{{ url_for('updateTopicScore', id=topic.Id|string, val=-1|string) }}" method="POST">
+      <input id="no" type=submit class="btn btn-danger btn-poll" value="-1" name="-1"></input>
+    </form>
+
 	</div>
   	<hr/>
   	<hr/>
