@@ -1,17 +1,43 @@
-<!DOCTYPE html>
 {% extends "layout.html" %}
+{% block footer %}Création d'un sujet - {% endblock %}
+{% block title %}Création d'un sujet - {% endblock %}
+{% block head %}
+  {{ super() }}
+  <script>
+        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+    $(function() {
+      getScoreColor($('#score'));
+
+      $('a.ptn-poll').click(function(e) {
+        var target = $(e.target);
+
+        if(target.is('#plus-one')) {
+          value = 1;
+        } else if(target.is('#minus-one')) {
+          value = -1;
+        } else {
+          value = 0;
+        }
+        $.getJSON($SCRIPT_ROOT + '/_update_topic_score'
+          , { value: value, topic_id: $('#topic_id').val() }
+            , function(data) {
+              $("#score").text(data.result);
+              getScoreColor($('#score'));
+        });
+      });
+    });
+  </script>
+{% endblock %}
 {% block content %}
-<html lang="fr" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <h1>Création d'un sujet</h1>
-  </head>
-  <body>
-    <form action="{{ url_for('add_topic') }}" method=post>
-        <div>Quelle est votre question ?</div>
-        <textarea name=question rows=5 cols=40></textarea>
-        <input type=submit value=Envoyer>
-    </form>
-  </body>
-</html>
+  <form action="{{ url_for('add_topic') }}" method=post>
+      <h1>Quelle est votre question ?</h1>
+      <hr/>
+      <textarea name=question rows=5 cols=40></textarea>
+      <hr/>
+      <div class = "text-center">
+        <input class="btn btn-success" type=submit value=Envoyer>
+        <a href="{{ url_for('index') }}" class="btn btn-danger">Retour</a>
+      </div>
+  </form>
 {% endblock %}
