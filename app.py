@@ -37,7 +37,7 @@ def hello_world():
     return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
 
 @app.route('/add_topic', methods = ['GET', 'POST'])
-def addTopic():
+def add_topic():
     if request.method == 'GET':
         return render_template('add_topic.html', title='template test')
     elif request.method == 'POST':
@@ -51,7 +51,7 @@ def addTopic():
 #     return '<p> {} </p>'.format(a.EmailAddress)
 
 @app.route('/update_topic_score/<id>/<val>', methods = ['GET', 'POST'])
-def updateTopicScore(id, val):
+def update_topic_score(id, val):
     TopicController.updateTopicScore(id, val)
     return displayTopic(id)
 
@@ -61,7 +61,7 @@ def index():
     return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
 
 @app.route('/display_topic/<topic_id>')
-def displayTopic(topic_id = None):
+def display_topic(topic_id = None):
     template = None;
 
     try:

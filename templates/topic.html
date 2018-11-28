@@ -11,11 +11,11 @@
     <div class="text-center">
       {{ topic.Score }}
     </div>
-    <form  action="{{ url_for('updateTopicScore', id=topic.Id|string, val=1|string) }}" method="POST">
+    <form  action="{{ url_for('update_topic_score', id=topic.Id|string, val=1|string) }}" method="POST">
 		    <input id="yes" type=submit class="btn btn-success btn-poll" value="1"></input>
     </form>
 
-    <form  action="{{ url_for('updateTopicScore', id=topic.Id|string, val=-1|string) }}" method="POST">
+    <form  action="{{ url_for('update_topic_score', id=topic.Id|string, val=-1|string) }}" method="POST">
       <input id="no" type=submit class="btn btn-danger btn-poll" value="-1" name="-1"></input>
     </form>
 
