@@ -41,3 +41,6 @@ footer {
 .btn-poll {
   margin: 5px;
 }
+.score {
+  float: right;
+}

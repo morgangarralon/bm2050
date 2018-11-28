@@ -1,6 +1,6 @@
 
 from flask import (
-    Flask, render_template, redirect, request, url_for, session
+    Flask, render_template, redirect, request, url_for, session, jsonify
 )
 
 from models import model
@@ -34,39 +34,40 @@ def page_not_found(e):
 @app.route('/')
 def hello_world():
     topics = TopicController.findAllTopic()
-    return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
-
-@app.route('/add_topic', methods = ['GET', 'POST'])
-def add_topic():
-    if request.method == 'GET':
-        return render_template('add_topic.html', title='template test')
-    elif request.method == 'POST':
-        TopicController.createTopic(request.form.get('question'), 1, 1, True)
-        return render_template('add_topic.html', title='template test')
-
-# @app.route('/models')
-# def models():
-#     a = Account('toto@tt.fr')
-#     a.Password = 'helloworld'
-#     return '<p> {} </p>'.format(a.EmailAddress)
-
-@app.route('/update_topic_score/<id>/<val>', methods = ['GET', 'POST'])
-def update_topic_score(id, val):
-    TopicController.updateTopicScore(id, val)
-    return displayTopic(id)
+    return render_template('index.html', static_url_path = static_url_path, topics = topics)
 
 @app.route('/index')
 def index():
     topics = TopicController.findAllTopic()
-    return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
+    return render_template('index.html', static_url_path = static_url_path, topics = topics)
+
+@app.route('/add_topic', methods = ['GET', 'POST'])
+def add_topic():
+    template = None
+    if request.method == 'GET':
+        template = render_template('add_topic.html')
+    elif request.method == 'POST':
+        topic = TopicController.createTopic(request.form.get('question'), 1, 1, True)
+        if topic == None:
+            template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
+        else:
+            template = render_template('topic.html', topic = topic)
+
+    return template
+
+@app.route('/_update_topic_score/')
+def update_topic_score():
+    value = request.args.get('value', 0, type=int)
+    topic_id = request.args.get('topic_id', 0, type=int)
+    score = TopicController.updateTopicScore(topic_id, value)
+
+    return jsonify(result=score)
 
 @app.route('/display_topic/<topic_id>')
 def display_topic(topic_id = None):
     template = None;
-
     try:
         topic = TopicController.findById(topic_id)
-
         if topic == None:
             template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
     except ModuleNotFoundError as e:

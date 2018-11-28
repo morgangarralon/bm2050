@@ -10,7 +10,6 @@ class Question(db.Model):
     IsPoll = db.Column(db.Boolean)
     Score = db.Column(db.Integer)
 
-
     def __init__(self):
         print("Hello World")
         

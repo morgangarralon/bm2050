@@ -7,18 +7,18 @@ from models.question import Question
 from sqlalchemy import update
 
 def createTopic(question, accountId, answerStatusId, isPoll):
+    question = Question()
+    question.Question = question
+    question.AccountId = accountId
+    question.TimeStamp = datetime.date.today()
+    question.AnswerStatusId = answerStatusId
+    question.IsPoll = isPoll
+    question.Score = 0
 
-    qst = Question()
-
-    qst.Question = question
-    qst.AccountId = accountId
-    qst.TimeStamp = datetime.date.today()
-    qst.AnswerStatusId = answerStatusId
-    qst.IsPoll = isPoll
-    qst.Score = 0
-
-    db.session.add(qst)
+    db.session.add(question)
     db.session.commit()
+
+    return question
 
 def findAllTopic():
     return Question.query.all()
@@ -26,12 +26,19 @@ def findAllTopic():
 def findById(id):
     return Question.query.get(id)
 
-def updateTopicScore(id, vote):
+def updateTopicScore(id, value):
     question = findById(int(id))
-    question.Score = question.Score + int(vote)
+    if question == None:
+        return 'erreur!'
+
+    question.Score = question.Score + int(value)
+
+    db.session.add(question)
     db.session.commit()
 
-def DeleteTopicController(questionId):
+    return question.Score
+
+def deleteTopicController(questionId):
     print('delete topic not implemented')
 
     Question.query.filter_by(id = questionId).delete()
