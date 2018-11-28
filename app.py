@@ -47,7 +47,7 @@ def addTopic():
 #     a.Password = 'helloworld'
 #     return '<p> {} </p>'.format(a.EmailAddress)
 
-@app.route('/indexzouille')
+@app.route('/index')
 def indexzouille():
 
     topics = TopicController.findAllTopic()
