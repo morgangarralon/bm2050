@@ -54,6 +54,14 @@ def indexzouille():
     #= ['bla', 'blabla', 'blablabla', '...............................................................']
     return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
 
+@app.route('/topic')
+def indexzouille():
+
+    topics = TopicController.findAllTopic()
+    #= ['bla', 'blabla', 'blablabla', '...............................................................']
+    return render_template('topic.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
+
+
 
 if __name__ == '__main__':
     app.run('localhost', '5000')

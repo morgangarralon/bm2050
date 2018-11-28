@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Création d'un sujet</title>
+  </head>
+  <body>
+    <form action="{{ url_for('addTopic') }}" method=post>
+        <div>Quelle est votre question ?</div>
+        <textarea name=question rows=5 cols=40></textarea>
+        <input type=submit value=Envoyer>
+    </form>
+  </body>
+</html>
