@@ -1,11 +1,12 @@
-from models.model import db
-from models.question import Question
-from models.answerStatus import AnswerStatus
-
 import datetime
 
+from models.answerStatus import AnswerStatus
+from models.account import Account
+from models.model import db
+from models.question import Question
+
 def createTopic(question, accountId, answerStatusId, isPoll):
-    
+
     qst = Question()
 
     qst.Question = question
@@ -17,6 +18,9 @@ def createTopic(question, accountId, answerStatusId, isPoll):
 
     db.session.add(qst)
     db.session.commit()
+
+def findAllTopic():
+    return Question.query.all()
 
 def DeleteTopicController(questionId):
     print('delete topic not implemented')

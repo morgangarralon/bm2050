@@ -3,19 +3,19 @@ from flask import (
     Flask, render_template, redirect, request, url_for, session
 )
 
-# from models import model
-# from models.account import Account
-# from models.accountDomainExpertise import AccountDomainExpertise
-# from models.answer import Answer
-# from models.answerDomainExpertise import AnswerDomainExpertise
-# from models.answerStatus import AnswerStatus
-# from models.domainExpertise import DomainExpertise
-# from models.pollOption import PollOption
-# from models.question import Question
-# from models.role import Role
-# from models.vote import Vote
+from models import model
+from models.account import Account
+from models.accountDomainExpertise import AccountDomainExpertise
+from models.answer import Answer
+from models.answerDomainExpertise import AnswerDomainExpertise
+from models.answerStatus import AnswerStatus
+from models.domainExpertise import DomainExpertise
+from models.pollOption import PollOption
+from models.question import Question
+from models.role import Role
+from models.vote import Vote
 
-# from controllers import TopicController
+from controllers import TopicController
 
 static_url_path = '/static'
 app = Flask(__name__, static_url_path=static_url_path)
@@ -33,13 +33,13 @@ def hello_world():
 # def templates():
 #     return render_template('sample.html', title='template test')
 
-# @app.route('/addTopic', methods = ['GET', 'POST'])
-# def addTopic():
-#     if request.method == 'GET':
-#         return render_template('AddTopic.html', title='template test')
-#     elif request.method == 'POST':
-#         TopicController.createTopic(request.form)
-#         return render_template('AddTopic.html', title='template test')
+@app.route('/addTopic', methods = ['GET', 'POST'])
+def addTopic():
+    if request.method == 'GET':
+        return render_template('AddTopic.html', title='template test')
+    elif request.method == 'POST':
+        TopicController.createTopic(request.form.get('question'), 1, 1, True)
+        return render_template('AddTopic.html', title='template test')
 
 # @app.route('/models')
 # def models():
@@ -49,7 +49,9 @@ def hello_world():
 
 @app.route('/indexzouille')
 def indexzouille():
-    topics = ['bla', 'blabla', 'blablabla', '...............................................................']
+
+    topics = TopicController.findAllTopic()
+    #= ['bla', 'blabla', 'blablabla', '...............................................................']
     return render_template('index.html', static_url_path = static_url_path, topic_list='lol', topics = topics)
 
 
