@@ -1,11 +1,10 @@
 {% extends "layout.html" %}
-{% block footer %}Liste des problématiques {{ topic_list }}}}{% endblock %}
-{% block title %}Liste des problématiques {{ topic_list }} - {% endblock %}
 {% block head %}
   {{ super() }}
+  {% block title %}Liste des problématiques{% endblock %}
 {% endblock %}
 {% block content %}
-  <h1>Liste des problématiques {{ topic_list }}</h1>
+  <h1>Liste des problématiques</h1>
   <hr/>
   <div class="text-center">
     <div class="btn-group btn-category-group" role="group" aria-label="...">
