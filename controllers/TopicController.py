@@ -24,3 +24,6 @@ def findAllTopic():
 
 def DeleteTopicController(questionId):
     print('delete topic not implemented')
+    
+    Question.query.filter_by(id = questionId).delete()
+    db.session.commit()
