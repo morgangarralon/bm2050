@@ -45,9 +45,10 @@
 	    <hr/>
 
 	</div>
-  	<hr/>
-  	<hr/>
-  	
+		{% for answer in topic.Answers %}
+				<div class="list-group-item list-group-item-action">{{ answer.Answer }}</div>
+		{% endfor %}
+
 {% if session['logged_in'] %}
   	<input id="topic_id" type="hidden" value="{{ topic.Id }}"/>
 
