@@ -36,8 +36,7 @@ def page_not_found(e):
 
 @app.route('/')
 def hello_world():
-    topics = TopicController.findAllTopic()
-    return render_template('index.html', static_url_path = static_url_path, topics = topics)
+    return redirect(url_for('index'))
 
 @app.route('/index')
 def index():
