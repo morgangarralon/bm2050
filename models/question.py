@@ -11,7 +11,7 @@ class Question(db.Model):
     AnswerStatusId = db.Column(db.Integer, db.ForeignKey('AnswerStatus.Id'))
     IsPoll = db.Column(db.Boolean)
     Score = db.Column(db.Integer)
-    Popularity = None
+    Popularity = 0
     Answers = []
 
     def __init__(self):

@@ -32,20 +32,26 @@
 {% block content %}
 	<h2 class="">{{ topic.Question }}</h2>
 	<hr/>
-
 	<div class="row">
 		<div class="col-sm-6">
 				{% for answer in answersPro %}
+					{% if answer.IsExpert == True %}
 						<div class="alert alert-success">{{ answer.Answer }}</div>
+					{% else %}
+						<div class="alert alert-success"><span class="glyphicon glyphicon-star"></span> {{ answer.Answer }}</div>
+					{% endif %}
 				{% endfor %}
 		</div>
 		<div class="col-sm-6">
 			{% for answer in answersContre %}
-				<div class="alert alert-danger">{{ answer.Answer }}</div>
+					{% if answer.IsExpert == True %}
+						<div class="alert alert-danger">{{ answer.Answer }}</div>
+					{% else %}
+						<div class="alert alert-danger"><span class="glyphicon glyphicon-star"></span> {{ answer.Answer }}</div>
+					{% endif %}
 			{% endfor %}
 		</div>
 	</div>
-
 	<hr/>
 	<div class="text-center">
 	    <div class="text-center">
@@ -58,18 +64,16 @@
 				{% endif %}
 	    </div>
 	    <hr/>
-
 	</div>
-
 {% if session['logged_in'] %}
   	<input id="topic_id" type="hidden" value="{{ topic.Id }}"/>
-
     <form action="{{ url_for('add_comment', question_id=topic.Id) }}"  id="comment-form" method=post>
         <fieldset id="group1">
           <input type="radio" value="Pour" name="group1" checked="checked">
           <input type="radio" value="Contre" name="group1">
         </fieldset>
         <textarea placeholder="Veuillez entrer un commentaire" name=answer rows=2 cols=40></textarea>
+        <hr/>
       	<div class = "text-center">
         	<input class="btn btn-success" type=submit value=Envoyer>
         	<a href="{{ url_for('index') }}" class="btn btn-danger">Retour</a>

@@ -24,6 +24,10 @@ def createTopic(question, accountId, answerStatusId, isPoll):
 def findAllTopic():
     return Question.query.all()
 
+def getOrderedQuestions(question):
+    question.sort(key=lambda Question: Question.Popularity, reverse=True)
+    return question
+
 def findById(id):
     return Question.query.get(id)
 
