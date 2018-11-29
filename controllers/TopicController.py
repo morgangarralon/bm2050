@@ -43,6 +43,3 @@ def deleteTopicController(questionId):
 
     Question.query.filter_by(id = questionId).delete()
     db.session.commit()
-
-def popularity(qstId):
-    return Vote.query.filter_by(QuestionId = qstId).count()
