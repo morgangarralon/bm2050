@@ -45,15 +45,9 @@
 	    <hr/>
 
 	</div>
-<<<<<<< HEAD
   	<hr/>
   	<hr/>
   	
-=======
-		{% for answer in topic.Answers %}
-				<div class="list-group-item list-group-item-action">{{ answer.Answer }}</div>
-		{% endfor %}
->>>>>>> 30f56a9ff243cd6e7028213dc13365fecbedae3a
 {% if session['logged_in'] %}
   	<input id="topic_id" type="hidden" value="{{ topic.Id }}"/>
 

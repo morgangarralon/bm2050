@@ -29,13 +29,11 @@ def findById(id):
 def deleteAccount():
     print('Account deletion not yet implemented')
 
-<<<<<<< HEAD
 def getAccount(id):
     return Account.query.get(id)
-=======
+    
 def getIsExpert():
     return AccountDomainExpertise.query.get(self.Id)
->>>>>>> 30f56a9ff243cd6e7028213dc13365fecbedae3a
 
 # The @login_manager.user_loader piece tells Flask-login how to load users given an id
 #    @login_manager.user_loader
