@@ -8,8 +8,17 @@
 
 		$(function() {
 			getScoreColor($('#score'));
+			
+			$('#pouroucontre').click(function(e) {
+				var target = $(e.target);
+				if(target.is('#pour')) {
+					$("input[name='group1']").val('Pour')
+				} else if(target.is('#contre')) {
+					$("input[name='group1']").val('Contre')
+				}
+			});
 
-			$('a.ptn-poll').click(function(e) {
+			$('.ptn-poll').click(function(e) {
 				var target = $(e.target);
 
 				if(target.is('#plus-one')) {
@@ -33,7 +42,7 @@
 	<h2 class="">{{ topic.Question }}</h2>
 	<hr/>
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-6" id="list-comment-positive">
 				{% for answer in answersPro %}
 					{% if answer.IsExpert == True %}
 						<div class="alert alert-success">{{ answer.Answer }}</div>
@@ -42,24 +51,24 @@
 					{% endif %}
 				{% endfor %}
 		</div>
-		<div class="col-sm-6">
+		<div class="col-sm-6" id="list-comment-negative">
 			{% for answer in answersContre %}
 					{% if answer.IsExpert == True %}
 						<div class="alert alert-danger">{{ answer.Answer }}</div>
 					{% else %}
-						<div class="alert alert-danger"><span class="glyphicon glyphicon-star"></span> {{ answer.Answer }}</div>
+						<div class="alert alert-danger">{{ answer.Answer }} <span class="glyphicon glyphicon-star"></span></div>
 					{% endif %}
 			{% endfor %}
 		</div>
 	</div>
 	<hr/>
 	<div class="text-center">
-	    <div class="text-center">
+	    <div class="text-center answer">
 	      <h3 id="score">{{ topic.Score }}</h3>
 				{% if session['logged_in'] %}
 					    <div class="text-center">
-					    	<a href="#" id="plus-one" class="btn btn-success ptn-poll">+</a>
-					    	<a href="#" id="minus-one" class="btn btn-danger ptn-poll">-</a>
+					    	<span id="plus-one" class="btn btn-success ptn-poll">+</span>
+					    	<span href="#" id="minus-one" class="btn btn-danger ptn-poll">-</span>
 					    </div>
 				{% endif %}
 	    </div>
@@ -68,12 +77,16 @@
 {% if session['logged_in'] %}
   	<input id="topic_id" type="hidden" value="{{ topic.Id }}"/>
     <form action="{{ url_for('add_comment', question_id=topic.Id) }}"  id="comment-form" method=post>
-        <fieldset id="group1">
-          <input type="radio" value="Pour" name="group1" checked="checked">
-          <input type="radio" value="Contre" name="group1">
+        <fieldset class="answer">
+        	<fieldset id="pouroucontre">
+		    	<span href="#" id="pour" class="btn btn-success">Pour <span class="glyphicon glyphicon-thumbs-up"></span> </span>
+		    	<span id="contre" class="btn btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span> Contre</span>
+		    </fieldset>
+	        <br/>
+	        <textarea placeholder="Veuillez entrer un commentaire" name=answer rows=2 cols=40></textarea>
         </fieldset>
-        <textarea placeholder="Veuillez entrer un commentaire" name=answer rows=2 cols=40></textarea>
         <hr/>
+        <input name="group1" type="hidden" value="Pour"/>
       	<div class = "text-center">
         	<input class="btn btn-success" type=submit value=Envoyer>
         	<a href="{{ url_for('index') }}" class="btn btn-danger">Retour</a>

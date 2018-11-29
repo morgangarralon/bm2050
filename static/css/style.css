@@ -23,6 +23,9 @@ footer {
   }
   .row.content {height:auto;}
 }
+#comment-form {
+
+}
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
   margin-bottom: 0;
@@ -33,7 +36,6 @@ footer {
 /* Set gray background color and 100% height */
 .sidenav {
   padding-top: 20px;
-  background-color: #f1f1f1;
   height: 100%;
 }
 #bm2050 {
@@ -55,7 +57,7 @@ footer {
 }
 
 .popularity {
-  
+
 }
 
 #user-form {
@@ -93,4 +95,15 @@ footer {
   background-color: red;
   margin-top: 1%;
   color: yellow;
+}
+#list-comment-positive {
+  text-align: left;
+}
+#list-comment-negative {
+  text-align: right;
+}
+.answer {
+  border-color: #555555;
+  border-width: 2px;
+  border-left-style: solid;
 }
