@@ -1,6 +1,6 @@
 
 from flask import (
-    Flask, render_template, redirect, request, url_for, session, jsonify
+    Flask, flash, render_template, redirect, request, url_for, session, jsonify
 )
 
 from models import model
