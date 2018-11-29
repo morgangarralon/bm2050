@@ -4,7 +4,7 @@
 {% block head %}
 	{{ super() }}
 	<script>
-        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        $SCRIPT_ROOT = location.protocol+'//'+location.hostname+(location.port ?  ':'+location.port: '');
 
 		$(function() {
 			getScoreColor($('#score'));
@@ -19,7 +19,7 @@
 				} else {
 					value = 0;
 				}
-				$.getJSON($SCRIPT_ROOT + '/_update_topic_score'
+				$.getJSON($SCRIPT_ROOT + '/_update_topic_score/'
 					, { value: value, topic_id: $('#topic_id').val() }
 				  	, function(data) {
 				  		$("#score").text(data.result);
@@ -52,13 +52,35 @@
 {% if session['logged_in'] %}
   	<input id="topic_id" type="hidden" value="{{ topic.Id }}"/>
 
-    <form action="{{ url_for('add_comment', question_id=topic.Id) }}" method=post>
+    <form action="{{ url_for('add_comment', question_id=topic.Id) }}"  id="comment-form" method=post>
         <fieldset id="group1">
           <input type="radio" value="Pour" name="group1" checked="checked">
           <input type="radio" value="Contre" name="group1">
         </fieldset>
         <textarea name=answer rows=2 cols=40>Votre commentaire</textarea>
-        <input type=submit value=Envoyer>
+      	<div class = "text-center">
+        	<input class="btn btn-success" type=submit value=Envoyer>
+        	<a href="{{ url_for('index') }}" class="btn btn-danger">Retour</a>
+      </div>
     </form>
 {% endif %}
+
+<div class="comment-list text-left">
+	<span class="positive-comments">
+		<div class="positive-comment">#TODO positive comments...</div>
+		<div class="positive-comment">#TODO positive comments...</div>
+		<div class="positive-comment">#TODO positive comments...</div>
+<!-- 		{% for positive_comment in positive_comments%}
+			#TODO
+		{% endfor %} -->
+	</span>
+	<span class="negative-comments text-right">
+		<div class="negative-comment">#TODO negative comments...</div>
+		<div class="negative-comment">#TODO negative comments...</div>
+		<div class="negative-comment">#TODO negative comments...</div>
+<!-- 		{% for negative_comment in negative_comments%}
+			#TODO	
+		{% endfor %} -->
+	</span>
+</div>
 {% endblock %}
