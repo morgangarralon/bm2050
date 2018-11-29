@@ -62,7 +62,7 @@ def do_login():
         if request.form['password'] == account.password:
             session['logged_in'] = True
         else:
-            flash("L'e-mail ou le mots de passe est erroné !")
+            flash("L e-mail ou le mots de passe est en erreur !")
     except:
             print("Exception login")
     return index()
@@ -105,17 +105,12 @@ def update_topic_score():
 
 @app.route('/display_topic/<topic_id>')
 def display_topic(topic_id = None):
-<<<<<<< HEAD
     template = None
     try:
         topic = TopicController.findById(topic_id)
         if topic == None:
             template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
     except ModuleNotFoundError as e:
-=======
-    topic = TopicController.findById(topic_id)
-    if topic is None:
->>>>>>> f43359c22060e1d07de289454bad87ddc25eb568
         template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
 
     return render_template('topic.html', topic = topic)
