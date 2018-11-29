@@ -1,6 +1,6 @@
 
 from flask import (
-    Flask, render_template, redirect, request, url_for, session, jsonify
+    Flask, flash, render_template, redirect, request, url_for, session, jsonify
 )
 
 from models import model
@@ -60,14 +60,17 @@ def add_topic():
 
 @app.route('/login', methods=['GET', 'POST'])
 def do_login():
-    try:
-        account = Account.query.filter_by(EmailAddress == request.form['username'])
-        if request.form['password'] == account.password:
-            session['logged_in'] = True
-        else:
-            flash('L\'email ou le mot de passe est/sont erroné(s) !')
-    except:
-            print("Exception login")
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        try:
+            account = Account.query.filter_by(EmailAddress == request.form['username'])
+            if request.form['password'] == account.password:
+                session['logged_in'] = True
+            else:
+                flash("L e-mail ou le mots de passe est en erreur !")
+        except:
+                print("Exception login")
     return index()
 
 @app.route('/register', methods = ['GET', 'POST'])
@@ -78,7 +81,17 @@ def register():
     elif request.method == 'POST':
         # TODO passwordCheck
 
-        oggedInAccount = AccountController.createAccount(
+        if (request.form.get('emailAddress1') == request.form.get('emailAddress2')):
+            print("emails correspond")
+        else:
+            print("emails don't correspond")
+
+        if(request.form.get('password1') == request.form.get('password2')):
+            print("passwords correspond")
+        else:
+            print("emails don't correspond")
+
+        AccountController.createAccount(
             request.form.get('firstName'),
             request.form.get('lastName'),
             request.form.get('emailAddress1'),
@@ -109,12 +122,20 @@ def add_comment(question_id = None):
 
 @app.route('/display_topic/<topic_id>')
 def display_topic(topic_id = None):
-    topic = TopicController.findById(topic_id)
-    if topic is None:
+    template = None
+    try:
+        topic = TopicController.findById(topic_id)
+        if topic == None:
+            template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
+    except ModuleNotFoundError as e:
         template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
 
     return render_template('topic.html', topic = topic)
 
+@app.route('/about')
+def about():
+    topics = TopicController.findAllTopic()
+    return render_template('about.html', static_url_path = static_url_path, topics = topics)
 
 if __name__ == '__main__':
-    app.run('localhost', '5000')
+    app.run('localhost', port =5000)
