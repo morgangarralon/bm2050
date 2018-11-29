@@ -25,6 +25,9 @@ def createAccount(firstName, lastName, emailAddress, username, password):
 def deleteAccount():
     print('Account deletion not yet implemented')
 
+def getAccount(id):
+    return Account.query.get(id)
+
 # The @login_manager.user_loader piece tells Flask-login how to load users given an id
 #    @login_manager.user_loader
 #    def user_loader(AccountId):

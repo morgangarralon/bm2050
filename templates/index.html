@@ -40,7 +40,6 @@
     {% endif %}
       <a href="{{ url_for('display_topic', topic_id=topic.Id|string) }}" class="list-group-item list-group-item-action">
         <span class="title">{{ title }}</span>
-        <span class="popularity">{{ topic.popularity() }}</span>
         <span class="score">{{ topic.Score}}</span>
       </a>
     {% endfor %}
