@@ -160,7 +160,9 @@ def display_topic(topic_id = None):
             template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
         else:
             topic.setAnswers()
-            template = render_template('topic.html', topic=topic, session=session)
+            answerPro = AnswerController.getAnswerByIdAndPollOrderedByExpertise(topic_id, "Pour")
+            answerContre = AnswerController.getAnswerByIdAndPollOrderedByExpertise(topic_id, "Contre")
+            template = render_template('topic.html', topic=topic, session=session, answerPro=answerPro, answerContre=answerContre)
     except ModuleNotFoundError as e:
         template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
 

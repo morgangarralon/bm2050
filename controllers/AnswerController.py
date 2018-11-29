@@ -23,3 +23,7 @@ def createAnswer(questionId, accountId, answer, pollStatus):
 
 def getAnswersByQuestionId(id):
     return Answer.query.filter_by(QuestionId=id).all()
+
+def getAnswerByIdAndPollOrderedByExpertise(id, poll):
+    poll = PollOption.query.filter_by(PollOptionName=poll).first()
+    return Answer.query.filter_by(Id=id, PollOptionId=poll.Id)
