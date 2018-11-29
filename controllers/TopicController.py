@@ -3,6 +3,7 @@ from models.question import Question
 from models.account import Account
 from sqlalchemy import update
 from models.model import db
+from models.vote import Vote
 import datetime
 
 def createTopic(question, accountId, answerStatusId, isPoll):
@@ -43,3 +44,6 @@ def deleteTopicController(questionId):
 
     Question.query.filter_by(id = questionId).delete()
     db.session.commit()
+
+def popularity(qstId):
+    return Vote.query.filter_by(QuestionId = qstId).count()
