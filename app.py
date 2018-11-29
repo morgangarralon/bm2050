@@ -111,8 +111,7 @@ def register():
             request.form.get('username'),
             request.form.get('password1')
         )
-        template = render_template('index.html', static_url_path=static_url_path,
-                topics=TopicController.findAllTopic(), session=session)
+        return redirect(url_for('do_login'))
 
     return template
 
