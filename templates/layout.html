@@ -27,7 +27,11 @@
         <div class="collapse navbar-collapse" id="myNavbar">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/about"><span class="glyphicon glyphicon-info-sign"></span> A propos</a></li>
+          {% if session['logged_in'] %}
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          {% else %}
             <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          {% endif %}
             <li><a href="/register"><span class="glyphicon glyphicon-plus"></span> S'enregistrer</a></li>
           </ul>
         </div>
@@ -38,9 +42,10 @@
       <div class="row content">
         <div class="col-sm-2 sidenav text-left">
           <p><div id="bm2050"> </div></p>
+          {% if session['logged_in'] %}
           <p><a href="#">Vos sujets</a></p>
           <p><a href="/add_topic">Proposer un sujet</a></p>
-          <p><a href="/index">Liste des sujets</a></p>
+          {% endif %}
         </div>
 
         <div class="col-sm-8 text-center">

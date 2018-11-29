@@ -26,6 +26,7 @@ app.config.from_mapping(
     SQLALCHEMY_DATABASE_URI=model.database_uri,
     SQLALCHEMY_TRACK_MODIFICATIONS=model.track_modification
 )
+app.secret_key = "azedqolikncvr65g5215pverbepouh"
 
 model.init_app(app)
 
@@ -42,7 +43,8 @@ def hello_world():
 @app.route('/index')
 def index():
     topics = TopicController.findAllTopic()
-    return render_template('index.html', static_url_path = static_url_path, topics = topics)
+    return render_template('index.html', static_url_path=static_url_path,
+            topics=topics, session=session)
 
 @app.route('/add_topic', methods = ['GET', 'POST'])
 def add_topic():
@@ -58,20 +60,25 @@ def add_topic():
 
     return template
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
 @app.route('/login', methods=['GET', 'POST'])
 def do_login():
     if request.method == 'GET':
         return render_template('login.html')
     elif request.method == 'POST':
-        try:
-            account = Account.query.filter_by(EmailAddress == request.form['username'])
-            if request.form['password'] == account.password:
-                session['logged_in'] = True
-            else:
-                flash("L e-mail ou le mots de passe est en erreur !")
-        except:
-                print("Exception login")
-    return index()
+        account = Account.query.filter_by(EmailAddress=request.form['username']).first()
+        if account is not None and request.form['password'] == account.Password:
+            session['account_id'] = account.Id
+            session['account_username'] = account.Username
+            session['logged_in'] = True
+        else:
+            flash("e-mail ou mot de passe invalide !")
+            return redirect(url_for('do_login'))
+    return redirect(url_for('index'))
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
