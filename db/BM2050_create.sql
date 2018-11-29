@@ -37,7 +37,7 @@ CREATE TABLE Answer (
     Answer varchar(1000) NOT NULL,
     AnswerId integer,
     TimeStamp datetime NOT NULL,
-    PollOpionid integer,
+    PollOptionid integer,
     Score integer NOT NULL,
     CONSTRAINT Answer_Question FOREIGN KEY (QuestionId)
     REFERENCES Question (Id),
@@ -45,7 +45,7 @@ CREATE TABLE Answer (
     REFERENCES Account (Id),
     CONSTRAINT Answer_Answer FOREIGN KEY (AnswerId)
     REFERENCES Answer (Id),
-    CONSTRAINT Answer_PollOpions FOREIGN KEY (PollOpionid)
+    CONSTRAINT Answer_PollOptions FOREIGN KEY (PollOptionid)
     REFERENCES PollOpion (id)
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE PollOpion (
     id integer NOT NULL CONSTRAINT PollOpion_pk PRIMARY KEY,
     OptionName varchar(255) NOT NULL,
     QuestionId integer NOT NULL,
-    CONSTRAINT PollOpions_Question FOREIGN KEY (QuestionId)
+    CONSTRAINT PollOptions_Question FOREIGN KEY (QuestionId)
     REFERENCES Question (Id)
 );
 
