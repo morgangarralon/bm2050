@@ -28,8 +28,6 @@ app.config.from_mapping(
 
 model.init_app(app)
 
-#loggedInAccount = None
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
@@ -64,9 +62,18 @@ def register():
     if request.method == 'GET':
         template = render_template('register.html')
     elif request.method == 'POST':
-        # TODO passwordCheck
 
-        oggedInAccount = AccountController.createAccount(
+        if (request.form.get('emailAddress1') == request.form.get('emailAddress2')):
+            print("emails correspond")
+        else:
+            print("emails don't correspond")
+
+        if(request.form.get('password1') == request.form.get('password2')):
+            print("passwords correspond")
+        else:
+            print("emails don't correspond")
+
+        AccountController.createAccount(
             request.form.get('firstName'),
             request.form.get('lastName'),
             request.form.get('emailAddress1'),
@@ -87,7 +94,7 @@ def update_topic_score():
 
 @app.route('/display_topic/<topic_id>')
 def display_topic(topic_id = None):
-    template = None;
+    template = None
     try:
         topic = TopicController.findById(topic_id)
         if topic == None:
