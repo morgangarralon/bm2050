@@ -64,16 +64,21 @@ ans.Name = 'Done'
 model.db.session.add(ans)
 model.db.session.commit()
 
-question = Question()
-question.Question = 'test tse'
-question.AccountId = 1
-question.TimeStamp = datetime.date.today()
-question.AnswerStatusId = 1
-question.IsPoll = True
-question.Score = 0
-
-model.db.session.add(question)
-model.db.session.commit()
+questions = [
+    'LE BEC DE BONNE ESPÉRANCE À AMBÈS',
+    'DES GALERIES TECHNIQUES MAGIQUES À BORDEAUX',
+    '« VAGUE REBELLE ET PISCINE GÉANTE SUR LA GARONNE » À BORDEAUX',
+]
+for i in range(len(questions)):
+    question = Question()
+    question.TimeStamp = datetime.date.today()
+    question.AnswerStatusId = 1
+    question.IsPoll = True
+    question.Score = 0
+    question.AccountId = i + 1
+    question.Question = questions[i]
+    model.db.session.add(question)
+    model.db.session.commit()
 
 
 for domain in ['voierie', 'environnement', 'politique',
