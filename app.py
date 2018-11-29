@@ -57,14 +57,14 @@ def add_topic():
 
     return template
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login')
 def do_login():
     try:
         account = Account.query.filter_by(EmailAddress == request.form['username'])
         if request.form['password'] == account.password:
             session['logged_in'] = True
         else:
-            flash('L\'email ou le mot de passe est/sont erroné(s) !')
+            flash("L'e-mail ou le mots de passe est erroné !")
     except:
             print("Exception login")
     return index()
