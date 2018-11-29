@@ -116,12 +116,10 @@ def register():
 @app.route('/_update_topic_score/')
 def update_topic_score():
     if session['logged_in']:
-
+        topic_id = request.args.get('topic_id')
+        value = request.args.get('value')
         acc = AccountController.getAccount(session['account_id'])
-        topic_id = request.args.get('topic_id', 0, type=int)
-
         vote = VoteController.findQuestionVote(acc.Id, topic_id)
-        value = request.args.get('value', 0, type=int)
 
         if vote is None:
             score = TopicController.updateTopicScore(topic_id, value)
@@ -131,14 +129,11 @@ def update_topic_score():
             score = TopicController.updateTopicScore(topic_id, value*2)
             print("vote up")
             vote.IsUpvote = True
-            db.session.add(vote)
             db.session.commit()
-
         if value is -1 and vote.IsUpvote is True:
             score = TopicController.updateTopicScore(topic_id, value*2)
             print("vote down")
             vote.IsUpvote = False
-            db.session.add(vote)
             db.session.commit()
             
         else:
