@@ -99,6 +99,10 @@ def display_topic(topic_id = None):
 
     return template
 
+@app.route('/about')
+def about():
+    topics = TopicController.findAllTopic()
+    return render_template('about.html', static_url_path = static_url_path, topics = topics)
 
 if __name__ == '__main__':
-    app.run('localhost', '5000')
+    app.run('localhost', port =5000)
