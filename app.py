@@ -117,27 +117,25 @@ def register():
 def update_topic_score():
     if session['logged_in']:
         topic_id = request.args.get('topic_id')
-        value = request.args.get('value')
-        acc = AccountController.getAccount(session['account_id'])
-        vote = VoteController.findQuestionVote(acc.Id, topic_id)
+        value = int(request.args.get('value'))
+        accId = session['account_id']
 
+        vote = VoteController.findQuestionVote(accId, topic_id)
+        
         if vote is None:
             score = TopicController.updateTopicScore(topic_id, value)
-        
-        # Je sait, ca suce des boules mais on vas laisser, pas assez de temps
-        if value is 1 and vote.IsUpvote is False:
+            VoteController.createQuestionVote(accId, topic_id, value)
+        elif value == 1 and vote.IsUpvote is False:
             score = TopicController.updateTopicScore(topic_id, value*2)
             print("vote up")
             vote.IsUpvote = True
             db.session.commit()
-        if value is -1 and vote.IsUpvote is True:
+        elif value == -1 and vote.IsUpvote is True:
             score = TopicController.updateTopicScore(topic_id, value*2)
             print("vote down")
             vote.IsUpvote = False
             db.session.commit()
-            
         else:
-
             flash("vous avez déjà voté(e) par rapport à ce sujet")
     else:
         flash("Vous n'etes pas connecté")
