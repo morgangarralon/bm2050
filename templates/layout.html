@@ -28,6 +28,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/about"><span class="glyphicon glyphicon-info-sign"></span> A propos</a></li>
           {% if session['logged_in'] %}
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ session['account_username'] }}</a></li>
             <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
           {% else %}
             <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
