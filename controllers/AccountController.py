@@ -1,3 +1,4 @@
+from models.accountDomainExpertise import AccountDomainExpertise
 from models.account import Account
 from functools import wraps
 from flask import request, Response
@@ -22,8 +23,14 @@ def createAccount(firstName, lastName, emailAddress, username, password):
     db.session.add(account)
     db.session.commit()
 
+def findById(id):
+    return Account.query.get(id)
+
 def deleteAccount():
     print('Account deletion not yet implemented')
+
+def getIsExpert():
+    return AccountDomainExpertise.query.get(self.Id)
 
 # The @login_manager.user_loader piece tells Flask-login how to load users given an id
 #    @login_manager.user_loader
