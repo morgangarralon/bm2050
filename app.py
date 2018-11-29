@@ -1,6 +1,7 @@
 
 from flask import (
-    Flask, flash, render_template, redirect, request, url_for, session, jsonify
+    Flask, flash, render_template, redirect, request, url_for, session, jsonify,
+    get_flashed_messages
 )
 
 from models import model
