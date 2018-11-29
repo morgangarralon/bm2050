@@ -55,16 +55,19 @@ def add_topic():
 
     return template
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def do_login():
-    try:
-        account = Account.query.filter_by(EmailAddress == request.form['username'])
-        if request.form['password'] == account.password:
-            session['logged_in'] = True
-        else:
-            flash("L e-mail ou le mots de passe est en erreur !")
-    except:
-            print("Exception login")
+    if request.method == 'GET':
+        return render_template('login.html')
+    elif request.method == 'POST':
+        try:
+            account = Account.query.filter_by(EmailAddress == request.form['username'])
+            if request.form['password'] == account.password:
+                session['logged_in'] = True
+            else:
+                flash("L e-mail ou le mots de passe est en erreur !")
+        except:
+                print("Exception login")
     return index()
 
 @app.route('/register', methods = ['GET', 'POST'])

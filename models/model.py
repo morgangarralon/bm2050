@@ -3,14 +3,13 @@ import sys
 from flask_sqlalchemy import SQLAlchemy
 
 try:
-    from .conf import DB_DIR, DB_NAME
+    from .conf import DB_PATH
 except ModuleNotFoundError as e:
     print("configure 'models/conf.py' from 'models/conf.py.sample'")
     exit(1)
 
-db_path = os.path.join(os.path.dirname(__file__) + '/../' + DB_DIR, DB_NAME)
 track_modification = False
-database_uri = 'sqlite:///{}'.format(db_path)
+database_uri = 'sqlite:///{}'.format(DB_PATH)
 
 db = SQLAlchemy()
 

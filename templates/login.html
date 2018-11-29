@@ -1,6 +1,7 @@
-{% block body %}
+{% extends "layout.html" %}
+{% block content %}
 {% if session['logged_in'] %}
-<p>Vous êtes connecté(e) !</p>
+   <p>hi</p>
 {% else %}
 <form action="/login" method="POST">
   <input type="username" name="username" placeholder="Adresse mail">

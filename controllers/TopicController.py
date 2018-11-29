@@ -28,7 +28,7 @@ def findById(id):
 
 def updateTopicScore(id, value):
     question = findById(int(id))
-    if question == None:
+    if question is None:
         return 'erreur!'
 
     question.Score = question.Score + int(value)
