@@ -2,7 +2,7 @@
 {% block footer %}Création d'un sujet - {% endblock %}
 {% block title %}Création d'un sujet - {% endblock %}
 {% block content %}
-  <form action="{{ url_for('add_topic') }}" method=post>
+  <form action="{{ url_for('add_topic') }}" id="topic-form" method=post>
       <h1>Quelle est votre question ?</h1>
       <hr/>
       <textarea name=question rows=5 cols=40></textarea>

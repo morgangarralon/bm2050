@@ -1,6 +1,6 @@
 from models.answerStatus import AnswerStatus
-from models.question import Question
 from models.account import Account
+from models.answer import Answer
 from sqlalchemy import update
 from models.model import db
 import datetime
@@ -18,3 +18,6 @@ def createAnswer(questionId, accountId, answer):
     db.session.commit()
 
     return answ
+
+def getAnswersByQuestionId(id):
+    return Answer.query.filter_by(QuestionId=id).all()

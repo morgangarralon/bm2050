@@ -1,6 +1,9 @@
 #user-form input {
   width: 46%;
 }
+#topic-form textarea {
+  width: 55%;
+}
 /* Set black background color, white text and some padding */
 footer {
   background-color: #555;
@@ -13,9 +16,9 @@ footer {
     height: auto;
     padding: 15px;
   }
-  .row.content {height:auto;} 
+  .row.content {height:auto;}
 }
-/* Remove the navbar's default margin-bottom and rounded borders */ 
+/* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
   margin-bottom: 0;
   border-radius: 0;
