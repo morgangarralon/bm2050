@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block footer %}Création d'un sujet - {% endblock %}
+{% block title %}Création d'un sujet - {% endblock %}
+{% block head %}
+  {{ super() }}
+  
+{% endblock %}
+{% block content %}
+  <form action="{{ url_for('register') }}" method=post>
+      
+
+      <p> Prénom </p>
+      <input name=firstName type=text />
+
+      <p> Nom de famille </p>  
+      <input name=lastName type=text />
+
+      <p> Nom d'utilisateur</p>  
+      <input name=username type=text />
+      
+      <p> Addresse email</p>  
+      <input name=emailAddress1 type=text />
+
+      <p> Vérification adresse email </p>  
+      <input name=emailAddress2 type=text />
+
+      <p> Mot de passe</p>  
+      <input name=password1 type=password />
+
+      <p> Check mot de passe </p>  
+      <input name=password2 type=password />
+
+
+      <div class = "text-center">
+        <input class="btn btn-success" type=submit value=Envoyer>
+        <a href="{{ url_for('index') }}" class="btn btn-danger">Retour</a>
+      </div>
+  </form>
+{% endblock %}

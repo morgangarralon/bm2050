@@ -1,9 +1,26 @@
 from models.account import Account
 from functools import wraps
 from flask import request, Response
+from models.model import db
 
-def createAccount():
-    print('Account creation not yet implemented')
+import datetime
+
+def createAccount(firstName, lastName, emailAddress, username, password):
+
+    account = Account()
+
+    account.IsAdmin = False
+    account.FirstName = firstName
+    account.LastName = lastName
+    account.EmailAddress = emailAddress
+    account.RoleId = 1
+    account.CreationDate = datetime.datetime.now()
+    account.LastLogin = datetime.datetime.now()
+    account.Username = username
+    account.Password = password
+
+    db.session.add(account)
+    db.session.commit()
 
 def deleteAccount():
     print('Account deletion not yet implemented')

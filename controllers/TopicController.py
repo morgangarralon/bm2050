@@ -6,18 +6,19 @@ from models.model import db
 import datetime
 
 def createTopic(question, accountId, answerStatusId, isPoll):
-    question = Question()
-    question.Question = question
-    question.AccountId = accountId
-    question.TimeStamp = datetime.date.today()
-    question.AnswerStatusId = answerStatusId
-    question.IsPoll = isPoll
-    question.Score = 0
+    qst = Question()
 
-    db.session.add(question)
+    qst.Question = question
+    qst.AccountId = accountId
+    qst.TimeStamp = datetime.date.today()
+    qst.AnswerStatusId = answerStatusId
+    qst.IsPoll = isPoll
+    qst.Score = 0
+
+    db.session.add(qst)
     db.session.commit()
 
-    return question
+    return qst
 
 def findAllTopic():
     return Question.query.all()
