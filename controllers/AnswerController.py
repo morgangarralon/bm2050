@@ -11,6 +11,12 @@ def createAnswer(questionId, accountId, answer, pollStatus):
 
     answ.QuestionId = questionId
     answ.AccountId = accountId
+    account = Account.query.filter_by(Id=accountId).first()
+    account.setDomainExpertise()
+    if len(account.DomainExpertise) > 0:
+        answ.IsExpert = True
+    else:
+        answ.IsExpert = False
     answ.Answer = answer
     answ.TimeStamp = datetime.date.today()
     answ.Score = 0
@@ -24,6 +30,6 @@ def createAnswer(questionId, accountId, answer, pollStatus):
 def getAnswersByQuestionId(id):
     return Answer.query.filter_by(QuestionId=id).all()
 
-def getAnswerByIdAndPollOrderedByExpertise(id, poll):
-    poll = PollOption.query.filter_by(PollOptionName=poll).first()
-    return Answer.query.filter_by(Id=id, PollOptionId=poll.Id)
+def getAnswerByIdAndPollOrderedByExpertise(id, pollValue):
+    poll = PollOption.query.filter_by(PollOptionName=pollValue).first()
+    return Answer.query.filter_by(QuestionId=id, PollOptionId=poll.Id).order_by(Answer.IsExpert.desc())

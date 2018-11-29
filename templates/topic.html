@@ -35,23 +35,18 @@
 
 	<div class="row">
 		<div class="col-sm-6">
-			<div class="alert alert-success">#TODO positive comments...</div>
-			<div class="alert alert-success">#TODO positive comments...</div>
-			<div class="alert alert-success">#TODO positive comments...</div>
-<!-- 		{% for positive_comment in positive_comments%}
-			#TODO
-		{% endfor %} -->
+				{% for answer in answersPro %}
+						<div class="alert alert-success">{{ answer.Answer }}</div>
+				{% endfor %}
 		</div>
 		<div class="col-sm-6">
-			<div class="alert alert-danger">#TODO positive comments...</div>
-<!-- 		{% for negative_comment in negative_comments%}
-			#TODO	
-		{% endfor %} -->
+			{% for answer in answersContre %}
+				<div class="alert alert-danger">{{ answer.Answer }}</div>
+			{% endfor %}
 		</div>
 	</div>
 
-<br/>
-
+	<hr/>
 	<div class="text-center">
 	    <div class="text-center">
 	      <h3 id="score">{{ topic.Score }}</h3>
@@ -65,9 +60,6 @@
 	    <hr/>
 
 	</div>
-		{% for answer in topic.Answers %}
-				<div class="list-group-item list-group-item-action">{{ answer.Answer }}</div>
-		{% endfor %}
 
 {% if session['logged_in'] %}
   	<input id="topic_id" type="hidden" value="{{ topic.Id }}"/>
@@ -77,7 +69,7 @@
           <input type="radio" value="Pour" name="group1" checked="checked">
           <input type="radio" value="Contre" name="group1">
         </fieldset>
-        <textarea name=answer rows=2 cols=40>Votre commentaire</textarea>
+        <textarea placeholder="Veuillez entrer un commentaire" name=answer rows=2 cols=40></textarea>
       	<div class = "text-center">
         	<input class="btn btn-success" type=submit value=Envoyer>
         	<a href="{{ url_for('index') }}" class="btn btn-danger">Retour</a>

@@ -1,4 +1,5 @@
 from .model import db
+from models.accountDomainExpertise import AccountDomainExpertise
 
 class Account(db.Model):
     __tablename__ = 'Account'
@@ -12,6 +13,7 @@ class Account(db.Model):
     LastLogin = db.Column(db.DateTime)
     Username = db.Column (db.String(255))
     Password = db.Column(db.String(255))
+    DomainExpertise = []
 
-    def __repr__(self):
-        return '<User %r>'% self.EmailAddress
+    def setDomainExpertise(self):
+        self.DomainExpertise = AccountDomainExpertise.query.filter_by(AccountId=self.Id).all()

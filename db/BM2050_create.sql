@@ -39,6 +39,7 @@ CREATE TABLE Answer (
     TimeStamp datetime NOT NULL,
     PollOptionid integer,
     Score integer NOT NULL,
+    IsExpert boolean NOT NULL,
     CONSTRAINT Answer_Question FOREIGN KEY (QuestionId)
     REFERENCES Question (Id),
     CONSTRAINT Answer_Account FOREIGN KEY (AccountId)

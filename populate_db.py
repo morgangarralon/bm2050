@@ -6,6 +6,7 @@ from models.account import Account
 from models.question import Question
 from models.answerStatus import AnswerStatus
 from models.domainExpertise import DomainExpertise
+from models.accountDomainExpertise import AccountDomainExpertise
 from models.pollOption import PollOption
 
 import datetime
@@ -31,7 +32,30 @@ acc.CreationDate = datetime.datetime.now()
 acc.LastLogin = datetime.datetime.now()
 acc.Username = 'Erik'
 acc.Password = 'Stevens'
+model.db.session.add(acc)
 
+acc = Account()
+acc.IsAdmin = False
+acc.FirstName = 'a'
+acc.LastName = 'a'
+acc.EmailAddress = 'a@a.a' # pas un vrai ... malheureusement
+acc.RoleId = 1
+acc.CreationDate = datetime.datetime.now()
+acc.LastLogin = datetime.datetime.now()
+acc.Username = 'a'
+acc.Password = 'a'
+model.db.session.add(acc)
+
+acc = Account()
+acc.IsAdmin = False
+acc.FirstName = 'a'
+acc.LastName = 'a'
+acc.EmailAddress = 'b@a.a' # pas un vrai ... malheureusement
+acc.RoleId = 1
+acc.CreationDate = datetime.datetime.now()
+acc.LastLogin = datetime.datetime.now()
+acc.Username = 'b'
+acc.Password = 'b'
 model.db.session.add(acc)
 
 ans = AnswerStatus()
@@ -58,6 +82,12 @@ for domain in ['voierie', 'environnement', 'politique',
     d.Name = domain
     model.db.session.add(d)
 model.db.session.commit()
+
+accountDomainExpertise = AccountDomainExpertise()
+accountDomainExpertise.DomainExpertiseId = 1
+accountDomainExpertise.AccountId = 2
+model.db.session.add(accountDomainExpertise)
+
 
 poll1 = PollOption()
 poll1.PollOptionName = "Pour"

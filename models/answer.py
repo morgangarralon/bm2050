@@ -10,6 +10,4 @@ class Answer(db.Model):
     TimeStamp = db.Column(db.DateTime)
     PollOptionId = db.Column(db.Integer, db.ForeignKey('PollOption.Id'))
     Score = db.Column(db.Integer)
-
-    def __repr__(self):
-        return '<answer %r>'% self.answer
+    IsExpert = db.Column(db.Boolean)
