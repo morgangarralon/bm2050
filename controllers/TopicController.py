@@ -2,6 +2,7 @@ from models.answerStatus import AnswerStatus
 from models.question import Question
 from models.account import Account
 from sqlalchemy import update
+from models.vote import Vote
 from models.model import db
 import datetime
 
