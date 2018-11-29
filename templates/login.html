@@ -1,0 +1,11 @@
+{% block body %}
+{% if session['logged_in'] %}
+<p>Vous êtes connecté(e) !</p>
+{% else %}
+<form action="/login" method="POST">
+  <input type="username" name="username" placeholder="Adresse mail">
+  <input type="password" name="password" placeholder="Mot de passe">
+  <input type="submit" value="Se connecter">
+</form>
+{% endif %}
+{% endblock %}
