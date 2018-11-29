@@ -5,6 +5,10 @@
   width: 55%;
   height: 70px;
 }
+#comment-form textarea {
+  width: 90%;
+  height: 70px;
+}
 /* Set black background color, white text and some padding */
 footer {
   background-color: #555;
@@ -61,4 +65,27 @@ footer {
 }
 .user-input-field {
   margin-right: 3%;
+}
+.comment-list {
+  margin-top: 3%;
+}
+.positive-comments {
+  color: yellow;
+  width: 46%;
+  float: left;
+}
+.negative-comments {
+  color: yellow;
+  float: right;
+  width: 46%;
+}
+.positive-comment {
+  background-color: green;
+  margin-top: 1%;
+  color: yellow;
+}
+.negative-comment {
+  background-color: red;
+  margin-top: 1%;
+  color: yellow;
 }
