@@ -119,14 +119,13 @@ def update_topic_score():
 
     return jsonify(result=score)
 
-@app.route('/add_comment/<question_id>')
+@app.route('/add_comment/<question_id>', methods = ['GET', 'POST'])
 def add_comment(question_id = None):
-    #accountId = request.args.get('account_id', 0, type=int)
-    accountId = 1
-    questionId = request.args.get('question_id', 0, type=int)
-    answer = request.args.get('answer', type=string)
-    AnswerController.createAnswer(question_id, account_id, answer)
-    return display_topic(question_id)
+    accountId = session['account_id']
+    answer = request.form.get('answer', type=str)
+
+    AnswerController.createAnswer(question_id, accountId, answer)
+    return redirect(url_for('display_topic', topic_id=question_id))
 
 
 @app.route('/display_topic/<topic_id>')
@@ -134,6 +133,7 @@ def display_topic(topic_id = None):
     template = None
     try:
         topic = TopicController.findById(topic_id)
+        topic.setAnswers()
         if topic == None:
             template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
     except ModuleNotFoundError as e:
