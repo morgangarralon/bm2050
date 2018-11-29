@@ -4,7 +4,7 @@
 {% block head %}
 	{{ super() }}
 	<script>
-        $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        $SCRIPT_ROOT = location.protocol+'//'+location.hostname+(location.port ?  ':'+location.port: '');
 
 		$(function() {
 			getScoreColor($('#score'));
@@ -19,7 +19,7 @@
 				} else {
 					value = 0;
 				}
-				$.getJSON($SCRIPT_ROOT + '/_update_topic_score'
+				$.getJSON($SCRIPT_ROOT + '/_update_topic_score/'
 					, { value: value, topic_id: $('#topic_id').val() }
 				  	, function(data) {
 				  		$("#score").text(data.result);
