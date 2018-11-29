@@ -39,7 +39,7 @@ model.db.session.add(ans)
 model.db.session.commit()
 
 question = Question()
-question.Question = 'test tsé'
+question.Question = 'test tse'
 question.AccountId = 1
 question.TimeStamp = datetime.date.today()
 question.AnswerStatusId = 1
