@@ -29,17 +29,12 @@ def findById(id):
 def updateTopicScore(id, value):
     question = findById(int(id))
     if question is None:
-        return 'erreur!'
-
+        raise RuntimeError('question not found')
     question.Score = question.Score + int(value)
-
-    db.session.add(question)
     db.session.commit()
-
     return question.Score
 
 def deleteTopicController(questionId):
     print('delete topic not implemented')
-
     Question.query.filter_by(id = questionId).delete()
     db.session.commit()
