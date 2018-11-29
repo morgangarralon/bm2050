@@ -54,8 +54,8 @@
 
     <form action="{{ url_for('add_comment', question_id=topic.Id) }}" method=post>
         <fieldset id="group1">
-          <input type="radio" value="True" name="group1">
-          <input type="radio" value="False" name="group1">
+          <input type="radio" value="Pour" name="group1" checked="checked">
+          <input type="radio" value="Contre" name="group1">
         </fieldset>
         <textarea name=answer rows=2 cols=40>Votre commentaire</textarea>
         <input type=submit value=Envoyer>

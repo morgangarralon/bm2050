@@ -73,10 +73,10 @@ CREATE TABLE DomainExpertise (
 );
 
 -- Table: PollOpion
-CREATE TABLE PollOpion (
+CREATE TABLE PollOption (
     id integer NOT NULL CONSTRAINT PollOpion_pk PRIMARY KEY,
-    OptionName varchar(255) NOT NULL,
-    QuestionId integer NOT NULL,
+    PollOptionName varchar(255) NOT NULL,
+    QuestionId integer,
     CONSTRAINT PollOptions_Question FOREIGN KEY (QuestionId)
     REFERENCES Question (Id)
 );

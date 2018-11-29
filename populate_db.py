@@ -6,6 +6,7 @@ from models.account import Account
 from models.question import Question
 from models.answerStatus import AnswerStatus
 from models.domainExpertise import DomainExpertise
+from models.pollOption import PollOption
 
 import datetime
 
@@ -58,4 +59,12 @@ for domain in ['voierie', 'environnement', 'politique',
     model.db.session.add(d)
 model.db.session.commit()
 
+poll1 = PollOption()
+poll1.PollOptionName = "Pour"
 
+poll2 = PollOption()
+poll2.PollOptionName = "Contre"
+
+model.db.session.add(poll1)
+model.db.session.add(poll2)
+model.db.session.commit()

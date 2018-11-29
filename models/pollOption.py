@@ -3,9 +3,8 @@ from .model import db
 class PollOption(db.Model):
     __tablename__ = 'PollOption'
     Id = db.Column(db.Integer, primary_key=True)
-    QuestionName = db.Column(db.String(255))
-    QuestionId = db.Column(db.Integer, db.ForeignKey('question.id'))
+    PollOptionName = db.Column(db.String(255))
+    QuestionId = db.Column(db.Integer, db.ForeignKey('Question.Id'))
 
     def __repr__(self):
         return '<pollOption %r>'% OptionName
-

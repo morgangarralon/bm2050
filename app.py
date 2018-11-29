@@ -121,7 +121,7 @@ def update_topic_score():
         accId = session['account_id']
 
         vote = VoteController.findQuestionVote(accId, topic_id)
-        
+
         if vote is None:
             score = TopicController.updateTopicScore(topic_id, value)
             VoteController.createQuestionVote(accId, topic_id, value)
@@ -146,8 +146,8 @@ def update_topic_score():
 def add_comment(question_id = None):
     accountId = session['account_id']
     answer = request.form.get('answer', type=str)
-
-    AnswerController.createAnswer(question_id, accountId, answer)
+    pollOption = request.form.get('group1', type=str)
+    AnswerController.createAnswer(question_id, accountId, answer, pollOption)
     return redirect(url_for('display_topic', topic_id=question_id))
 
 
