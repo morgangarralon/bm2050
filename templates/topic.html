@@ -46,4 +46,14 @@
   	<hr/>
   	#TODO pros 'n' cons
   	<input id="topic_id" type="hidden" value="{{ topic.Id }}"/>
+
+    <form action="{{ url_for('add_comment', question_id=topic.id) }}" method=post>
+        <fieldset id="group1">
+          <input type="radio" value="True" name="group1">
+          <input type="radio" value="False" name="group1">
+        </fieldset>
+        <div>Quelle est votre question ?</div>
+        <textarea name=answer rows=5 cols=40></textarea>
+        <input type=submit value=Envoyer>
+    </form>
 {% endblock %}

@@ -17,6 +17,7 @@ from models.vote import Vote
 
 from controllers import TopicController
 from controllers import AccountController
+from controllers import AnswerController
 
 static_url_path = '/static'
 app = Flask(__name__, static_url_path=static_url_path)
@@ -64,7 +65,7 @@ def do_login():
         if request.form['password'] == account.password:
             session['logged_in'] = True
         else:
-            flash('L\'email ou le mot de passe est/sont erroné(s) !')
+            flash('L\'email ou le mot de passe est/sont erronÃ©(s) !')
     except:
             print("Exception login")
     return index()
@@ -95,6 +96,16 @@ def update_topic_score():
     score = TopicController.updateTopicScore(topic_id, value)
 
     return jsonify(result=score)
+
+@app.route('/add_comment/<question_id>')
+def add_comment(question_id = None):
+    #accountId = request.args.get('account_id', 0, type=int)
+    accountId = 1
+    questionId = request.args.get('question_id', 0, type=int)
+    answer = request.args.get('answer', type=string)
+    AnswerController.createAnswer(question_id, account_id, answer)
+    return display_topic(question_id)
+
 
 @app.route('/display_topic/<topic_id>')
 def display_topic(topic_id = None):
