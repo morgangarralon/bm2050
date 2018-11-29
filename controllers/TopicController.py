@@ -2,6 +2,7 @@ from models.answerStatus import AnswerStatus
 from models.question import Question
 from models.account import Account
 from sqlalchemy import update
+from models.vote import Vote
 from models.model import db
 import datetime
 
@@ -38,3 +39,6 @@ def deleteTopicController(questionId):
     print('delete topic not implemented')
     Question.query.filter_by(id = questionId).delete()
     db.session.commit()
+
+def popularity(qstId):
+    return Vote.query.filter_by(QuestionId = qstId).count()
