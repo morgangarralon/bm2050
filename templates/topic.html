@@ -32,6 +32,26 @@
 {% block content %}
 	<h2 class="">{{ topic.Question }}</h2>
 	<hr/>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="alert alert-success">#TODO positive comments...</div>
+			<div class="alert alert-success">#TODO positive comments...</div>
+			<div class="alert alert-success">#TODO positive comments...</div>
+<!-- 		{% for positive_comment in positive_comments%}
+			#TODO
+		{% endfor %} -->
+		</div>
+		<div class="col-sm-6">
+			<div class="alert alert-danger">#TODO positive comments...</div>
+<!-- 		{% for negative_comment in negative_comments%}
+			#TODO	
+		{% endfor %} -->
+		</div>
+	</div>
+
+<br/>
+
 	<div class="text-center">
 	    <div class="text-center">
 	      <h3 id="score">{{ topic.Score }}</h3>
@@ -64,23 +84,4 @@
       </div>
     </form>
 {% endif %}
-
-<div class="comment-list text-left">
-	<span class="positive-comments">
-		<div class="positive-comment">#TODO positive comments...</div>
-		<div class="positive-comment">#TODO positive comments...</div>
-		<div class="positive-comment">#TODO positive comments...</div>
-<!-- 		{% for positive_comment in positive_comments%}
-			#TODO
-		{% endfor %} -->
-	</span>
-	<span class="negative-comments text-right">
-		<div class="negative-comment">#TODO negative comments...</div>
-		<div class="negative-comment">#TODO negative comments...</div>
-		<div class="negative-comment">#TODO negative comments...</div>
-<!-- 		{% for negative_comment in negative_comments%}
-			#TODO	
-		{% endfor %} -->
-	</span>
-</div>
 {% endblock %}
