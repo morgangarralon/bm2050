@@ -47,7 +47,7 @@ def index():
     topics = TopicController.findAllTopic()
     for topic in topics:
         topic.Popularity = TopicController.popularity(topic.Id)
-    topics.sort(key=lambda t: t.Popularity)
+    topics.sort(key=lambda t: -t.Popularity)
     return render_template('index.html', static_url_path=static_url_path,
             topics=topics, session=session)
 
