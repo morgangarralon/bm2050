@@ -1,4 +1,3 @@
-
 from flask import (
     Flask, flash, render_template, redirect, request, url_for, session, jsonify,
     get_flashed_messages
@@ -15,10 +14,12 @@ from models.pollOption import PollOption
 from models.question import Question
 from models.role import Role
 from models.vote import Vote
+from models.model import db
 
 from controllers import TopicController
 from controllers import AccountController
 from controllers import AnswerController
+from controllers import VoteController
 
 static_url_path = '/static'
 app = Flask(__name__, static_url_path=static_url_path)
@@ -116,11 +117,39 @@ def register():
 
 @app.route('/_update_topic_score/')
 def update_topic_score():
-    value = request.args.get('value', 0, type=int)
-    topic_id = request.args.get('topic_id', 0, type=int)
-    score = TopicController.updateTopicScore(topic_id, value)
+    if session['logged_in']:
 
-    return jsonify(result=score)
+        acc = AccountController.getAccount(session['account_id'])
+        topic_id = request.args.get('topic_id', 0, type=int)
+
+        vote = VoteController.findQuestionVote(acc.Id, topic_id)
+        value = request.args.get('value', 0, type=int)
+
+        if vote is None:
+            score = TopicController.updateTopicScore(topic_id, value)
+        
+        # Je sait, ca suce des boules mais on vas laisser, pas assez de temps
+        if value is 1 and vote.IsUpvote is False:
+            score = TopicController.updateTopicScore(topic_id, value*2)
+            print("vote up")
+            vote.IsUpvote = True
+            db.session.add(vote)
+            db.session.commit()
+
+        if value is -1 and vote.IsUpvote is True:
+            score = TopicController.updateTopicScore(topic_id, value*2)
+            print("vote down")
+            vote.IsUpvote = False
+            db.session.add(vote)
+            db.session.commit()
+            
+        else:
+
+            flash("vous avez déjà voté(e) par rapport à ce sujet")
+    else:
+        flash("Vous n'etes pas connecté")
+
+    return jsonify(result=TopicController.updateTopicScore(request.args.get('topic_id', 0, type=int), 0))
 
 @app.route('/add_comment/<question_id>', methods = ['GET', 'POST'])
 def add_comment(question_id = None):

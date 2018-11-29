@@ -35,20 +35,20 @@
 	<div class="text-center">
 	    <div class="text-center">
 	      <h3 id="score">{{ topic.Score }}</h3>
+				{% if session['logged_in'] %}
+					    <div class="text-center">
+					    	<a href="#" id="plus-one" class="btn btn-success ptn-poll">+</a>
+					    	<a href="#" id="minus-one" class="btn btn-danger ptn-poll">-</a>
+					    </div>
+				{% endif %}
 	    </div>
 	    <hr/>
-{% if session['logged_in'] %}
-	    <div class="text-center">
-	    	<a href="#" id="plus-one" class="btn btn-success ptn-poll">+</a>
-	    	<a href="#" id="minus-one" class="btn btn-danger ptn-poll">-</span></a>
-	    </div>
-{% endif %}
+
 	</div>
-  	<hr/>
-  	<hr/>
 		{% for answer in topic.Answers %}
-				<div class="title">{{ answer.Answer }}</div>
+				<div class="list-group-item list-group-item-action">{{ answer.Answer }}</div>
 		{% endfor %}
+
 {% if session['logged_in'] %}
   	<input id="topic_id" type="hidden" value="{{ topic.Id }}"/>
 

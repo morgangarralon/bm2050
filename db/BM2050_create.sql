@@ -117,8 +117,8 @@ CREATE TABLE Role (
 CREATE TABLE Vote (
     Id integer NOT NULL CONSTRAINT Vote_pk PRIMARY KEY,
     AccountId integer NOT NULL,
-    AnswerId integer NOT NULL,
-    QuestionId integer NOT NULL,
+    AnswerId integer,
+    QuestionId integer,
     TimeStamp datetime NOT NULL,
     IsUpvote boolean NOT NULL,
     CONSTRAINT Vote_Account FOREIGN KEY (AccountId)
