@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from flask import Flask
 from models import model
 from models.account import Account
@@ -45,21 +47,12 @@ question.AnswerStatusId = 1
 question.IsPoll = True
 question.Score = 0
 
-question2 = Question()
-question2.Question = 'test tse'
-question2.AccountId = 2
-question2.TimeStamp = datetime.date.today()
-question2.AnswerStatusId = 1
-question2.IsPoll = True
-question2.Score = -99
-
 model.db.session.add(question)
-model.db.session.add(question2)
 model.db.session.commit()
 
 
 for domain in ['voierie', 'environnement', 'politique',
-        'sociologue', 'philosophe', 'economie']:
+        'sociologue', 'philosophe', 'économie']:
     d = DomainExpertise()
     d.Name = domain
     model.db.session.add(d)
