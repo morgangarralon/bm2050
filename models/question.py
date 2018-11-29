@@ -12,7 +12,6 @@ class Question(db.Model):
 
     def __init__(self):
         print("New question created!")
-        
 
     def __repr__(self):
         return '<question %r>'% self.Question
