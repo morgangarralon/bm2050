@@ -25,7 +25,7 @@ app.config.from_mapping(
     SQLALCHEMY_TRACK_MODIFICATIONS=model.track_modification
 )
 
-model.db.init_app(app)
+model.init_app(app)
 
 @app.errorhandler(404)
 def page_not_found(e):

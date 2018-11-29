@@ -1,11 +1,23 @@
 #!/usr/bin/env python3
 
-from models.model import db
+from flask import Flask
+from models import model
 from models.account import Account
+from models.question import Question
 from models.answerStatus import AnswerStatus
 
 import datetime
 
+app = Flask(__name__)
+app.debug = True
+app.config.from_mapping(
+    SQLALCHEMY_DATABASE_URI=model.database_uri,
+    SQLALCHEMY_TRACK_MODIFICATIONS=model.track_modification
+)
+
+model.init_app(app)
+
+# help(model)
 
 acc = Account()
 acc.IsAdmin = False
@@ -18,11 +30,21 @@ acc.LastLogin = datetime.datetime.now()
 acc.Username = 'Erik'
 acc.Password = 'Stevens'
 
-db.session.add(acc)
-db.session.commit()
+model.db.session.add(acc)
 
 ans = AnswerStatus()
 ans.Name = 'Done'
 
-db.session.add(ans)
-db.session.commit()
+model.db.session.add(ans)
+model.db.session.commit()
+
+question = Question()
+question.Question = 'test tsé'
+question.AccountId = 1
+question.TimeStamp = datetime.date.today()
+question.AnswerStatusId = 1
+question.IsPoll = True
+question.Score = 0
+
+model.db.session.add(question)
+model.db.session.commit()

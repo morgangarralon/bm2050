@@ -11,7 +11,7 @@ class Question(db.Model):
     Score = db.Column(db.Integer)
 
     def __init__(self):
-        print("Hello World")
+        print("New question created!")
         
 
     def __repr__(self):

@@ -1,10 +1,9 @@
-import datetime
-
 from models.answerStatus import AnswerStatus
-from models.account import Account
-from models.model import db
 from models.question import Question
+from models.account import Account
 from sqlalchemy import update
+from models.model import db
+import datetime
 
 def createTopic(question, accountId, answerStatusId, isPoll):
     question = Question()
