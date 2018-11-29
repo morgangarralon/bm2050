@@ -56,7 +56,8 @@ def add_topic():
         if topic == None:
             template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
         else:
-            template = render_template('topic.html', topic = topic)
+            template = render_template('topic.html', topic=topic,
+                    session=session)
 
     return template
 
@@ -84,7 +85,7 @@ def do_login():
 def register():
     template = None
     if request.method == 'GET':
-        template = render_template('register.html')
+        template = render_template('register.html', session=session)
     elif request.method == 'POST':
         # TODO passwordCheck
 
@@ -105,7 +106,8 @@ def register():
             request.form.get('username'),
             request.form.get('password1')
         )
-        template = render_template('index.html', static_url_path = static_url_path, topics = TopicController.findAllTopic())
+        template = render_template('index.html', static_url_path=static_url_path,
+                topics=TopicController.findAllTopic(), session=session)
 
     return template
 
@@ -137,7 +139,7 @@ def display_topic(topic_id = None):
     except ModuleNotFoundError as e:
         template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
 
-    return render_template('topic.html', topic = topic)
+    return render_template('topic.html', topic=topic, session=session)
 
 @app.route('/about')
 def about():
