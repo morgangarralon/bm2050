@@ -5,6 +5,7 @@ from models import model
 from models.account import Account
 from models.question import Question
 from models.answerStatus import AnswerStatus
+from models.domainExpertise import DomainExpertise
 
 import datetime
 
@@ -48,3 +49,13 @@ question.Score = 0
 
 model.db.session.add(question)
 model.db.session.commit()
+
+
+for domain in ['voierie', 'environnement', 'politique',
+        'sociologue', 'philosophe', 'économie']:
+    d = DomainExpertise()
+    d.Name = domain
+    model.db.session.add(d)
+model.db.session.commit()
+
+
