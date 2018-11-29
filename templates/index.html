@@ -17,6 +17,8 @@
   <h1>Liste des sujets</h1>
   <h3><i> Et votez pour la prochaine <a href='https://www.bm2050.fr/decouvrez-le-monde-extraordinaire-de-bordeaux-en-2050/'>pépite</a> ! </i></h3>
   <hr/>
+  <span style="float:left;">Filtrer par catégorie :</span>
+  <br/>
   <div class="text-center">
     <div class="btn-group btn-category-group" role="group" aria-label="...">
       <button type="button" class="btn btn-default btn-danger btn-category">Cat1</button>
@@ -32,7 +34,7 @@
     </div>
   </div>
   <hr/>
-  <hr/>
+  <br/>
   <div class="list-group text-left">
     {% for topic in topics %}
     {% set title = topic.Question %}
