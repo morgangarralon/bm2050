@@ -3,34 +3,37 @@
 {% block title %}Création d'un sujet - {% endblock %}
 {% block head %}
   {{ super() }}
-  
 {% endblock %}
 {% block content %}
   <form action="{{ url_for('register') }}" method=post>
-      
-
-      <p> Prénom </p>
-      <input name=firstName type=text />
-
-      <p> Nom de famille </p>  
-      <input name=lastName type=text />
-
-      <p> Nom d'utilisateur</p>  
-      <input name=username type=text />
-      
-      <p> Addresse email</p>  
-      <input name=emailAddress1 type=text />
-
-      <p> Vérification adresse email </p>  
-      <input name=emailAddress2 type=text />
-
-      <p> Mot de passe</p>  
-      <input name=password1 type=password />
-
-      <p> Check mot de passe </p>  
-      <input name=password2 type=password />
-
-
+      <h1>S'enregistrer en tant que nouvel utilisateur</h1>
+      <hr/>
+      <div class="center-text">
+        <div id="user-form">
+          <p>
+            <span class="user-input-label">Prénom</span> <span class="user-input-field"><input name=firstName type=text /></span>
+          </p>
+          <p>
+            <span class="user-input-label">Nom de famille</span> <span class="user-input-field"><input name=lastName type=text /></span>
+          </p>
+          <p>
+            <span class="user-input-label">Nom d'utilisateur</span> <span class="user-input-field"><input name=username type=text /></span>
+          </p>
+          <p>
+            <span class="user-input-label">Addresse e-mail</span> <span class="user-input-field"><input name=emailAddress1 type=text /></span>
+          </p>
+          <p>
+            <span class="user-input-label">Vérification du adresse e-mail</span> <span class="user-input-field"><input name=emailAddress2 type=text /></span>
+          </p>
+          <p>
+            <span class="user-input-label">Mot de passe</span> <span class="user-input-field"><input name=password1 type=password /></span>
+          </p>
+          <p>
+            <span class="user-input-label">Vérification du mot de passe</span> <span class="user-input-field"><input name=password2 type=password /></span>
+          </p>
+        </div>
+      </div>
+      <hr/>
       <div class = "text-center">
         <input class="btn btn-success" type=submit value=Envoyer>
         <a href="{{ url_for('index') }}" class="btn btn-danger">Retour</a>
