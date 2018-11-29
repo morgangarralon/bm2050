@@ -163,13 +163,15 @@ def display_topic(topic_id = None):
     template = None
     try:
         topic = TopicController.findById(topic_id)
-        topic.setAnswers()
-        if topic == None:
+        if topic is None:
             template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
+        else:
+            topic.setAnswers()
+            template = ender_template('topic.html', topic=topic, session=session)
     except ModuleNotFoundError as e:
         template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
 
-    return render_template('topic.html', topic=topic, session=session)
+    return template
 
 @app.route('/about')
 def about():
