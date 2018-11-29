@@ -36,8 +36,7 @@ def page_not_found(e):
 
 @app.route('/')
 def hello_world():
-    topics = TopicController.findAllTopic()
-    return render_template('index.html', static_url_path = static_url_path, topics = topics)
+    return redirect(url_for('index'))
 
 @app.route('/index')
 def index():
@@ -57,6 +56,18 @@ def add_topic():
             template = render_template('topic.html', topic = topic)
 
     return template
+
+@app.route('/login', methods=['GET', 'POST'])
+def do_login():
+    try:
+        account = Account.query.filter_by(EmailAddress == request.form['username'])
+        if request.form['password'] == account.password:
+            session['logged_in'] = True
+        else:
+            flash('L\'email ou le mot de passe est/sont erroné(s) !')
+    except:
+            print("Exception login")
+    return index()
 
 @app.route('/register', methods = ['GET', 'POST'])
 def register():
@@ -87,17 +98,11 @@ def update_topic_score():
 
 @app.route('/display_topic/<topic_id>')
 def display_topic(topic_id = None):
-    template = None;
-    try:
-        topic = TopicController.findById(topic_id)
-        if topic == None:
-            template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
-    except ModuleNotFoundError as e:
+    topic = TopicController.findById(topic_id)
+    if topic is None:
         template = render_template('404.html', title = "Erreur dans l'affichage du topic " + topic_id)
 
-    template = render_template('topic.html', topic = topic)
-
-    return template
+    return render_template('topic.html', topic = topic)
 
 
 if __name__ == '__main__':
