@@ -122,9 +122,6 @@ def update_topic_score():
 
         vote = VoteController.findQuestionVote(accId, topic_id)
         
-        print(vote.IsUpvote)
-        print(value)
-
         if vote is None:
             score = TopicController.updateTopicScore(topic_id, value)
             VoteController.createQuestionVote(accId, topic_id, value)
