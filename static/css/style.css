@@ -53,6 +53,12 @@ footer {
 .score {
   float: right;
 }
+
+.popularity {
+    text-align: center;
+    color: blue;
+}
+
 #user-form {
   width: 80%;
   margin: auto;
