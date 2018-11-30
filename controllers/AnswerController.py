@@ -46,3 +46,6 @@ def updateAnswerScore(id, value):
     answer.Score = answer.Score + int(value)
     db.session.commit()
     return answer.Score
+
+def getAnswerScore(id):
+    return findById(id).Score

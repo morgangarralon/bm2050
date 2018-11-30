@@ -183,8 +183,8 @@ if __name__ == '__main__':
 
 @app.route('/_update_answer_score/')
 def update_answer_score():
-    score = 0
     if session['logged_in']:
+
         answer_id = request.args.get('answer_id')
         value = int(request.args.get('value'))
         accId = session['account_id']
@@ -208,6 +208,4 @@ def update_answer_score():
             flash("vous avez déjà voté(e) par rapport à ce sujet")
     else:
         flash("Vous n'etes pas connecté")
-
-    print(score)
-    return jsonify(score)
+    return jsonify(AnswerController.getAnswerScore(answer_id))
