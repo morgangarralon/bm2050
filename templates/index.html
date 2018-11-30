@@ -17,7 +17,6 @@
   <h1>Liste des sujets</h1>
   <h3><i> Et votez pour la prochaine <a href='https://www.bm2050.fr/decouvrez-le-monde-extraordinaire-de-bordeaux-en-2050/'>pépite</a> ! </i></h3>
   <hr/>
-  <span style="float:left;">Filtrer par catégorie :</span>
   <br/>
   <div class="text-center">
     <div class="btn-group btn-category-group" role="group" aria-label="...">
@@ -38,15 +37,16 @@
   <div class="list-group text-left">
     {% for topic in topics %}
     {% set title = topic.Question %}
-    {% if title|length > 50%}
-      {% set title = topic.Question[0:50] ~ "..." %}
+    {% if title|length > 90%}
+      {% set title = topic.Question[0:90] ~ "..." %}
     {% endif %}
       <a href="{{ url_for('display_topic', topic_id=topic.Id|string) }}" class="list-group-item list-group-item-action">
         <span class="title">{{ title }}</span>
         <div class="topic_info_list">
-            <span>Score : </span>
-            <span class="score">{{ topic.Score }}</span>
-            <span class="popularity text-info"> (popularité: {{ topic.Popularity }})</span>
+            / <span>score : </span>
+            <span class="score">{{ topic.Score }} </span>
+            / <spsan>popularité :  </span>
+            <span class="popularity text-info">{{ topic.Popularity }}</span>
         </div>
       </a>
     {% endfor %}

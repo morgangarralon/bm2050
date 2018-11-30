@@ -32,4 +32,6 @@ def getAnswersByQuestionId(id):
 
 def getAnswerByIdAndPollOrderedByExpertise(id, pollValue):
     poll = PollOption.query.filter_by(PollOptionName=pollValue).first()
-    return Answer.query.filter_by(QuestionId=id, PollOptionId=poll.Id).order_by(Answer.IsExpert.desc())
+    print("!!! " + str(pollValue) + " !!!")
+    print("!!! " + str(poll.Id) + " !!!")
+    return Answer.query.filter_by(QuestionId=id, PollOptionId=poll.Id).order_by(Answer.IsExpert.asc())
