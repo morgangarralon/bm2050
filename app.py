@@ -178,3 +178,34 @@ def about():
 
 if __name__ == '__main__':
     app.run('localhost', port =5000)
+
+
+
+@app.route('/_update_answer_score/')
+def update_answer_score():
+    if session['logged_in']:
+        answer_id = request.args.get('answer_id')
+        value = int(request.args.get('value'))
+        accId = session['account_id']
+
+        vote = VoteController.findAnswerVote(accId, answer_id)
+
+        if vote is None:
+            score = AnswerController.updateAnswerScore(answer_id, value)
+            VoteController.createQuestionVote(accId, answer_id, value)
+        elif value == 1 and vote.IsUpvote is False:
+            score = AnswerController.updateAnswerScore(answer_id, value*2)
+            print("vote up")
+            vote.IsUpvote = True
+            db.session.commit()
+        elif value == -1 and vote.IsUpvote is True:
+            score = AnswerController.updateAnswerScore(answer_id, value*2)
+            print("vote down")
+            vote.IsUpvote = False
+            db.session.commit()
+        else:
+            flash("vous avez déjà voté(e) par rapport à ce sujet")
+    else:
+        flash("Vous n'etes pas connecté")
+
+    return jsonify(result=TopicController.updateTopicScore(request.args.get('topic_id', 0, type=int), 0))

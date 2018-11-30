@@ -35,3 +35,11 @@ def getAnswerByIdAndPollOrderedByExpertise(id, pollValue):
     print("!!! " + str(pollValue) + " !!!")
     print("!!! " + str(poll.Id) + " !!!")
     return Answer.query.filter_by(QuestionId=id, PollOptionId=poll.Id).order_by(Answer.IsExpert.asc())
+
+def updateAnswerScore(id, value):
+    answer = findById(int(id))
+    if answer is None:
+        raise RuntimeError('question not found')
+    answer.Score = answer.Score + int(value)
+    db.session.commit()
+    return answer.Score

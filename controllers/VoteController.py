@@ -25,6 +25,8 @@ def createQuestionVote(accountId, questionId, value):
 def findQuestionVote(accountId, questionId):
     return Vote.query.filter_by(AccountId=accountId, QuestionId=questionId).first()
 
+def findAnswerVote(accountId, answerId):
+    return Vote.query.filter_by(AccountId=accountId, AnswerId=answerId).first()
 
 def findAllVote():
     return Vote.query.all()
