@@ -42,7 +42,7 @@ acc.EmailAddress = 'a@a.a' # pas un vrai ... malheureusement
 acc.RoleId = 1
 acc.CreationDate = datetime.datetime.now()
 acc.LastLogin = datetime.datetime.now()
-acc.Username = 'a'
+acc.Username = 'Bob'
 acc.Password = 'a'
 model.db.session.add(acc)
 
@@ -54,7 +54,7 @@ acc.EmailAddress = 'b@a.a' # pas un vrai ... malheureusement
 acc.RoleId = 1
 acc.CreationDate = datetime.datetime.now()
 acc.LastLogin = datetime.datetime.now()
-acc.Username = 'b'
+acc.Username = 'Alice'
 acc.Password = 'b'
 model.db.session.add(acc)
 
