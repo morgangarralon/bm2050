@@ -9,23 +9,29 @@
 		$(function() {
 			getScoreColor($('#score'));
 
+			$('#pour').addClass('vote-clicked');
+
 		    $('[data-toggle="tooltip"]').tooltip()
 			
-			$('#pouroucontre').click(function(e) {
+			$('.pouroucontre').click(function(e) {
 				var target = $(e.target);
-				if(target.is('#pour')) {
-					$("input[name='group1']").val('Pour')
-				} else if(target.is('#contre')) {
-					$("input[name='group1']").val('Contre')
+				if(target.is('.pour')) {
+					target.addClass('vote-clicked')
+					$('.contre').removeClass('vote-clicked')
+					$("#hidden" + target.attr('id')).val('Pour')
+				} else if(target.is('.contre')) {
+					target.addClass('vote-clicked')
+					$('.pour').removeClass('vote-clicked')
+					$("#hidden" + target.attr('id')).val('Contre')
 				}
 			});
 
 			$('.ptn-poll').click(function(e) {
 				var target = $(e.target);
 
-				if(target.is('#plus-one')) {
+				if(target.is('.plus-one')) {
 					value = 1;
-				} else if(target.is('#minus-one')) {
+				} else if(target.is('.minus-one')) {
 					value = -1;
 				} else {
 					value = 0;
@@ -37,6 +43,24 @@
 				  		getScoreColor($('#score'));
 				});
 			});
+
+			$('.ptn-poll').click(function(e) {
+				var target = $(e.target);
+
+				if(target.is('.plus-one')) {
+					value = 1;
+				} else if(target.is('.minus-one')) {
+					value = -1;
+				} else {
+					value = 0;
+				}
+				$.getJSON($SCRIPT_ROOT + '/_update_answer_score/'
+					, { value: value, topic_id: $('#topic_id').val() }
+				  	, function(data) {
+				  		$("#score" + target.attr('id')).text(data.result);
+				  		getScoreColor($("#score" + target.attr('id')));
+				});
+			});
 		});
 	</script>
 {% endblock %}
@@ -46,20 +70,38 @@
 	<div class="row">
 		<div class="col-sm-6" id="list-comment-positive">
 				{% for answer in answersPro %}
-					{% if answer.IsExpert == True %}
-						<div class="alert alert-success">{{ answer.Answer }}</div>
-					{% else %}
-						<div class="alert alert-success"><span class="glyphicon glyphicon-star"></span> {{ answer.Answer }}</div>
-					{% endif %}
+					<div class="alert alert-success">
+						{% if answer.IsExpert == True %}
+							{{ answer.Answer }}
+						{% else %}
+							<span class="glyphicon glyphicon-star"></span> {{ answer.Answer }}
+						{% endif %}
+						{% if session['logged_in'] %}
+							<span class="pouroucontre topic-answer-item">
+								<span class="pour btn btn-sm btn-success ptn-poll" id="{{ answer.Id }}">+</span>
+								 <span id="{{ answer.Id }}" class="contre btn btn-sm btn-danger ptn-poll">-</span>
+								  <span id="score{{ answer.Id }}" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="Résultat des votes"> {{ topic.Score }}</span>
+							</span>
+						{% endif %}
+					</div>
 				{% endfor %}
 		</div>
 		<div class="col-sm-6" id="list-comment-negative">
 			{% for answer in answersContre %}
-					{% if answer.IsExpert == True %}
-						<div class="alert alert-danger">{{ answer.Answer }}</div>
-					{% else %}
-						<div class="alert alert-danger">{{ answer.Answer }} <span class="glyphicon glyphicon-star"></span></div>
-					{% endif %}
+					<div class="alert alert-danger">
+						{% if answer.IsExpert == True %}
+							{{ answer.Answer }}
+						{% else %}
+							{{ answer.Answer }} <span class="glyphicon glyphicon-star"></span>
+						{% endif %}
+						{% if session['logged_in'] %}
+							<span class="pouroucontre topic-answer-item">
+								 <span class="btn btn-sm btn-default" id="score{{ answer.Id }}" data-toggle="tooltip" data-placement="top" title="Résultat des votes">{{ topic.Score }} </span>
+								<span class="pour btn btn-sm btn-success ptn-poll plus-one" id="{{ answer.Id }}">+</span>
+								<span class="contre btn btn-sm btn-danger ptn-poll minus-one" id="{{ answer.Id }}">-</span>
+							</span>
+						{% endif %}
+					</div>
 			{% endfor %}
 		</div>
 	</div>
@@ -69,8 +111,8 @@
 	      <span id="score" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Résultat des votes">{{ topic.Score }}</span>
 				{% if session['logged_in'] %}
 				    <div class="text-center">
-				    	<span id="plus-one" class="btn btn-success ptn-poll">+</span>
-				    	<span href="#" id="minus-one" class="btn btn-danger ptn-poll">-</span>
+				    	<span class="btn btn-success ptn-poll plus-one">+</span>
+				    	<span  class="btn btn-danger ptn-poll minus-one">-</span>
 				    </div>
 				{% endif %}
 	    </div>
@@ -80,15 +122,21 @@
   	<input id="topic_id" type="hidden" value="{{ topic.Id }}"/>
     <form action="{{ url_for('add_comment', question_id=topic.Id) }}"  id="comment-form" method=post>
         <fieldset class="answer">
-        	<fieldset id="pouroucontre">
-		    	<span href="#" id="pour" class="btn btn-success">Pour <span class="glyphicon glyphicon-thumbs-up"></span> </span>
-		    	<span id="contre" class="btn btn-danger"><span class="glyphicon glyphicon-thumbs-down"></span> Contre</span>
+        	<fieldset class="pouroucontre">
+		    	<span class="btn btn-success pour" id="group">Pour <span class="glyphicon glyphicon-thumbs-up"></span> </span>
+		    	<span class="btn btn-danger contre" id="group"><span class="glyphicon glyphicon-thumbs-down"></span> Contre</span>
 		    </fieldset>
 	        <br/>
 	        <textarea placeholder="Veuillez entrer un commentaire" name=answer rows=2 cols=40></textarea>
         </fieldset>
         <hr/>
-        <input name="group1" type="hidden" value="Pour"/>
+        <input name="group1" id="hiddengroup" type="hidden" value="Pour"/>
+        {% for answer in answersPro %}
+        	<input name="group1" id="hidden{{ answer.Id }}" type="hidden" value="{{ answer.Score }}"/>
+        {% endfor %}
+        {% for answer in answersContre %}
+        	<input name="group1" id="hidden{{ answer.Id }}" type="hidden" value="{{ answer.Score }}"/>
+        {% endfor %}
       	<div class = "text-center">
         	<input class="btn btn-success" type=submit value=Envoyer>
         	<a href="{{ url_for('index') }}" class="btn btn-danger">Retour</a>

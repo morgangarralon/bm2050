@@ -59,6 +59,14 @@ footer {
 .topic-info-item {
   float: right;
 }
+.alert-success .topic-answer-item {
+  float: right;
+  width: 28%;
+}
+.alert-danger .topic-answer-item {
+  float: left;
+  width: 28%;
+}
 .topic-item {
   line-height: 30px;
   vertical-align: middle;
@@ -117,12 +125,20 @@ footer {
 .tooltip-inner {
   width: 120px;
 }
-#pour {
+.pour {
   margin-right: 4%;
 }
-#contre {
+.contre {
   margin-left: 4%;
 }
 #about {
   text-align: justify;
+}
+.vote-clicked {
+  border-color: #555555;
+  border-width: 3px;
+  border-left-style: solid;
+}
+.topic-answer-item .contre, .topic-answer-item .pour {
+  margin: 0px;
 }
