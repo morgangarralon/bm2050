@@ -24,6 +24,10 @@
 					$('.pour').removeClass('vote-clicked')
 					$("#hidden" + target.attr('id')).val('Contre')
 				}
+
+				if($('.pouroucontre').hasClass('topic-answer-item')) {
+					ajax($('.poll'));
+				}
 			});
 
 			$('.ptn-poll').click(function(e) {
@@ -44,9 +48,7 @@
 				});
 			});
 
-			$('.poll').click(function(e) {
-				var target = $(e.target);
-
+			function ajax(target) {
 				if(target.is('.plus-one')) {
 					value = 1;
 				} else if(target.is('.minus-one')) {
@@ -55,13 +57,12 @@
 					value = 0;
 				}
 				$.getJSON($SCRIPT_ROOT + '/_update_answer_score/'
-				  		
 					, { value: $("#hidden" + target.attr('id')).val(), topic_id: $('#topic_id').val(), answer_id: target.attr('id')}
 				  	, function(data) {
 				  		$("#score" + target.attr('id')).text(data.result);
 				  		getScoreColor($("#score" + target.attr('id')));
 				});
-			});
+			}
 		});
 	</script>
 {% endblock %}
