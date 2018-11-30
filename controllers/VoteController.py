@@ -22,6 +22,22 @@ def createQuestionVote(accountId, questionId, value):
 
     return vote
 
+def createAnswerVote(accountId, answerId, value):
+    vote = Vote()
+
+    vote.AccountId = accountId
+    vote.AnswerId = answerId
+    vote.TimeStamp = datetime.datetime.now()
+    if value is 1:
+        vote.IsUpvote = True
+    else:
+        vote.IsUpvote = False
+
+    db.session.add(vote)
+    db.session.commit()
+
+    return vote
+
 def findQuestionVote(accountId, questionId):
     return Vote.query.filter_by(AccountId=accountId, QuestionId=questionId).first()
 

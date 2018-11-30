@@ -184,15 +184,16 @@ if __name__ == '__main__':
 @app.route('/_update_answer_score/')
 def update_answer_score():
     if session['logged_in']:
+        
         answer_id = request.args.get('answer_id')
         value = int(request.args.get('value'))
         accId = session['account_id']
-
+        
         vote = VoteController.findAnswerVote(accId, answer_id)
 
         if vote is None:
             score = AnswerController.updateAnswerScore(answer_id, value)
-            VoteController.createQuestionVote(accId, answer_id, value)
+            VoteController.createAnswerVote(accId, answer_id, value)
         elif value == 1 and vote.IsUpvote is False:
             score = AnswerController.updateAnswerScore(answer_id, value*2)
             print("vote up")

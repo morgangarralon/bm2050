@@ -36,6 +36,9 @@ def getAnswerByIdAndPollOrderedByExpertise(id, pollValue):
     print("!!! " + str(poll.Id) + " !!!")
     return Answer.query.filter_by(QuestionId=id, PollOptionId=poll.Id).order_by(Answer.IsExpert.asc())
 
+def findById(id):
+    return Answer.query.get(id)
+
 def updateAnswerScore(id, value):
     answer = findById(int(id))
     if answer is None:

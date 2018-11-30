@@ -44,7 +44,7 @@
 				});
 			});
 
-			$('.ptn-poll').click(function(e) {
+			$('.poll').click(function(e) {
 				var target = $(e.target);
 
 				if(target.is('.plus-one')) {
@@ -55,7 +55,8 @@
 					value = 0;
 				}
 				$.getJSON($SCRIPT_ROOT + '/_update_answer_score/'
-					, { value: value, topic_id: $('#topic_id').val() }
+				  		
+					, { value: $("#hidden" + target.attr('id')).val(), topic_id: $('#topic_id').val(), answer_id: target.attr('id')}
 				  	, function(data) {
 				  		$("#score" + target.attr('id')).text(data.result);
 				  		getScoreColor($("#score" + target.attr('id')));
@@ -78,8 +79,8 @@
 						{% endif %}
 						{% if session['logged_in'] %}
 							<span class="pouroucontre topic-answer-item">
-								<span class="pour btn btn-sm btn-success ptn-poll" id="{{ answer.Id }}">+</span>
-								 <span id="{{ answer.Id }}" class="contre btn btn-sm btn-danger ptn-poll">-</span>
+								<span class="pour btn btn-sm btn-success poll" id="{{ answer.Id }}">+</span>
+								 <span id="{{ answer.Id }}" class="contre btn btn-sm btn-danger poll">-</span>
 								  <span id="score{{ answer.Id }}" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="Résultat des votes"> {{ topic.Score }}</span>
 							</span>
 						{% endif %}
@@ -97,8 +98,8 @@
 						{% if session['logged_in'] %}
 							<span class="pouroucontre topic-answer-item">
 								 <span class="btn btn-sm btn-default" id="score{{ answer.Id }}" data-toggle="tooltip" data-placement="top" title="Résultat des votes">{{ topic.Score }} </span>
-								<span class="pour btn btn-sm btn-success ptn-poll plus-one" id="{{ answer.Id }}">+</span>
-								<span class="contre btn btn-sm btn-danger ptn-poll minus-one" id="{{ answer.Id }}">-</span>
+								<span class="pour btn btn-sm btn-success poll plus-one" id="{{ answer.Id }}">+</span>
+								<span class="contre btn btn-sm btn-danger poll minus-one" id="{{ answer.Id }}">-</span>
 							</span>
 						{% endif %}
 					</div>
