@@ -19,14 +19,18 @@
 					target.addClass('vote-clicked')
 					$('.contre').removeClass('vote-clicked')
 					$("#hidden" + target.attr('id')).val('Pour')
+					value = $('.poll-pour'+target.attr('Id'))
+
 				} else if(target.is('.contre')) {
 					target.addClass('vote-clicked')
 					$('.pour').removeClass('vote-clicked')
 					$("#hidden" + target.attr('id')).val('Contre')
+					value = $('.poll-contre'+target.attr('Id'))
+
 				}
 
 				if($('.pouroucontre').hasClass('topic-answer-item')) {
-					ajax($('.poll'));
+					ajax(value);
 				}
 			});
 
@@ -57,10 +61,9 @@
 					value = 0;
 				}
 				$.getJSON($SCRIPT_ROOT + '/_update_answer_score/'
-					, { value: $("#hidden" + target.attr('id')).val(), topic_id: $('#topic_id').val(), answer_id: target.attr('id')}
+					, { value: value, topic_id: $('#topic_id').val(), answer_id: target.attr('id')}
 				  	, function(data) {
-				  		$("#score" + target.attr('id')).text(data.result);
-				  		getScoreColor($("#score" + target.attr('id')));
+				  		$("#score" + target.attr('id')).text(data);
 				});
 			}
 		});
@@ -80,9 +83,9 @@
 						{% endif %}
 						{% if session['logged_in'] %}
 							<span class="pouroucontre topic-answer-item">
-								<span class="pour btn btn-sm btn-success poll" id="{{ answer.Id }}">+</span>
-								 <span id="{{ answer.Id }}" class="contre btn btn-sm btn-danger poll">-</span>
-								  <span id="score{{ answer.Id }}" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="Résultat des votes"> {{ topic.Score }}</span>
+								<span class="pour btn btn-sm btn-success poll-pour{{ answer.Id }} plus-one" id="{{ answer.Id }}">+</span>
+								 <span id="{{ answer.Id }}" class="contre btn btn-sm btn-danger poll-contre{{ answer.Id }} minus-one">-</span>
+								  <span id="score{{ answer.Id }}" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="Résultat des votes"> {{ answer.Score }}</span>
 							</span>
 						{% endif %}
 					</div>
@@ -98,9 +101,9 @@
 						{% endif %}
 						{% if session['logged_in'] %}
 							<span class="pouroucontre topic-answer-item">
-								 <span class="btn btn-sm btn-default" id="score{{ answer.Id }}" data-toggle="tooltip" data-placement="top" title="Résultat des votes">{{ topic.Score }} </span>
-								<span class="pour btn btn-sm btn-success poll plus-one" id="{{ answer.Id }}">+</span>
-								<span class="contre btn btn-sm btn-danger poll minus-one" id="{{ answer.Id }}">-</span>
+								 <span class="btn btn-sm btn-default" id="score{{ answer.Id }}" data-toggle="tooltip" data-placement="top" title="Résultat des votes">{{ answer.Score }} </span>
+								<span class="pour btn btn-sm btn-success poll-pour{{ answer.Id }} plus-one" id="{{ answer.Id }}">+</span>
+								<span class="contre btn btn-sm btn-danger poll-contre{{ answer.Id }} minus-one" id="{{ answer.Id }}">-</span>
 							</span>
 						{% endif %}
 					</div>

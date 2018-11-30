@@ -183,12 +183,12 @@ if __name__ == '__main__':
 
 @app.route('/_update_answer_score/')
 def update_answer_score():
+    score = 0
     if session['logged_in']:
-        
         answer_id = request.args.get('answer_id')
         value = int(request.args.get('value'))
         accId = session['account_id']
-        
+
         vote = VoteController.findAnswerVote(accId, answer_id)
 
         if vote is None:
@@ -209,4 +209,5 @@ def update_answer_score():
     else:
         flash("Vous n'etes pas connecté")
 
-    return jsonify(result=TopicController.updateTopicScore(request.args.get('topic_id', 0, type=int), 0))
+    print(score)
+    return jsonify(score)
