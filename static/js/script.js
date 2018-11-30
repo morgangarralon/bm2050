@@ -1,15 +1,15 @@
 function getScoreColor(element) {
   if(parseInt(element.html()) > 0) {
-    element.removeClass('text-danger');
-    element.removeClass('text-muted');
-    element.addClass('text-success');
+    element.removeClass('btn-danger');
+    element.removeClass('btn-light');
+    element.addClass('btn-success');
   } else if (parseInt(element.html()) < 0) {
-    element.removeClass('text-success');
-    element.removeClass('text-muted');
-    element.addClass('text-danger');
+    element.removeClass('btn-success');
+    element.removeClass('btn-light');
+    element.addClass('btn-danger');
   } else {
-    element.removeClass('text-success');
-    element.removeClass('text-danger');
-    element.addClass('text-muted');
+    element.removeClass('btn-success');
+    element.removeClass('btn-danger');
+    element.addClass('btn-light');
   }
 }

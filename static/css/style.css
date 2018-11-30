@@ -9,11 +9,15 @@
   width: 90%;
   height: 70px;
 }
+h1 {
+  background-color: #eeeeee;
+  border-radius: 4px;
+}
 /* Set black background color, white text and some padding */
 footer {
   background-color: #555;
-  color: white;
   padding: 15px;
+  color: white;
 }
 /* On small screens, set height to 'auto' for sidenav and grid */
 @media screen and (max-width: 767px) {
@@ -52,10 +56,13 @@ footer {
 .btn-poll {
   margin: 5px;
 }
-.topic_info_list {
+.topic-info-item {
   float: right;
 }
-
+.topic-item {
+  line-height: 30px;
+  vertical-align: middle;
+}
 #user-form {
   width: 80%;
   margin: auto;
@@ -102,4 +109,20 @@ footer {
   border-color: #555555;
   border-width: 2px;
   border-left-style: solid;
+}
+#score {
+  margin-bottom: 2%;
+  width: 8%;
+}
+.tooltip-inner {
+  width: 120px;
+}
+#pour {
+  margin-right: 4%;
+}
+#contre {
+  margin-left: 4%;
+}
+#about {
+  text-align: justify;
 }

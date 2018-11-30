@@ -7,6 +7,8 @@
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 
     $(function() {
+      $('[data-toggle="tooltip"]').tooltip()
+  
       $('.score').each(function(index) {
         getScoreColor($(this));
       });
@@ -40,14 +42,14 @@
     {% if title|length > 90%}
       {% set title = topic.Question[0:90] ~ "..." %}
     {% endif %}
-      <a href="{{ url_for('display_topic', topic_id=topic.Id|string) }}" class="list-group-item list-group-item-action">
+      <a href="{{ url_for('display_topic', topic_id=topic.Id|string) }}" class="list-group-item list-group-item-action topic-item">
         <span class="title">{{ title }}</span>
-        <div class="topic_info_list">
-            / <span>score : </span>
-            <span class="score">{{ topic.Score }} </span>
-            / <spsan>popularité :  </span>
-            <span class="popularity text-info">{{ topic.Popularity }}</span>
-        </div>
+        <span class="topic-info-item">
+            <!-- <span>#score : </span> -->
+            <span class="btn btn-sm btn-default score" data-toggle="tooltip" data-placement="top" title="Résultat des votes">{{ topic.Score }} </span>
+            <!-- <span>#popularité :  </span> -->
+            <span class="btn btn-sm btn-default popularity btn-info" data-toggle="tooltip" data-placement="top" title="Popularité du sujet">{{ topic.Popularity }}</span>
+        </span>
       </a>
     {% endfor %}
   </div>
